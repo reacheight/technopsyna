@@ -1,19 +1,18 @@
-import telebot
+from bot import bot
 
 import config
-
-bot = telebot.TeleBot(config.token)
+from bl import my_bl, basic_bl
 
 
 @bot.message_handler(commands=['bl'])
 def bl_command(message):
-    bot.send_message(message.chat.id, config.bl_string())
+    my_bl(message)
 
 
 @bot.message_handler(content_types=['text'])
 def bl_message(message):
     if 'ыыы' in message.text:
-        bot.reply_to(message, config.bl_string())
+        basic_bl(message)
 
 
 bot.polling(none_stop=True)
