@@ -10,7 +10,7 @@ def basic_bl(message):
     if rand in range(1, 30):
         bot.reply_to(message, 'ы' * randint(5, 20))
     if rand in range(31, 40):
-        bot.send_message(message.chat.id, "Заебали Ыкать уже!")
+        bot.send_message(message.chat.id, "Прекратите!")
 
 
 def my_bl(message):
