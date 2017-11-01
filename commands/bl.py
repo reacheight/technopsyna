@@ -1,15 +1,15 @@
 import os
-from bot import bot
 from random import choice, randint
 
 import config
+from bot import bot
 
 
 def basic_bl(message):
     rand = randint(1, 100)
-    if rand in range(1, 30):
+    if rand in range(1, 10):
         bot.reply_to(message, 'ы' * randint(5, 20))
-    if rand in range(31, 40):
+    if rand in range(30, 35):
         bot.send_message(message.chat.id, "Прекратите!")
 
 
@@ -39,4 +39,3 @@ def my_bl(message):
             bot.reply_to(message, str(your_bl).replace("<br>", "\n"))
 
         bl_file.close()
-
