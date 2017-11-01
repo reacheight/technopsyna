@@ -14,7 +14,7 @@ def basic_bl(message):
 
 
 def my_bl(message):
-    if randint(1, 100) in range(1, 20):
+    if randint(1, 33) == 22:
         imgs = os.listdir(config.bl_images_locations)
         random_file = choice(imgs)
         your_img = open(config.bl_images_locations + random_file, "rb")
