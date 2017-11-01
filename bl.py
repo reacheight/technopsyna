@@ -32,14 +32,11 @@ def my_bl(message):
         your_bl = choice(bl_file.readlines())
 
         if str(your_bl).startswith("<sticker>"):
-            if randint(1, 100) in range(1, 70):
-                sticker_id = str(your_bl[9:]).strip()
-                bot.send_sticker(message.chat.id, sticker_id, reply_to_message_id=message.message_id)
-            else:
-                bot.send_message(message.chat.id, "Хватит ыкать!")
+            sticker_id = str(your_bl[9:]).strip()
+            bot.send_sticker(message.chat.id, sticker_id, reply_to_message_id=message.message_id)
 
         else:
-            bot.reply_to(message, str(your_bl))
+            bot.reply_to(message, str(your_bl).replace("<br>", "\n"))
 
         bl_file.close()
 
