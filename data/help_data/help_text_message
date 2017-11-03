@@ -7,6 +7,10 @@
 
 /bl — ыкнуть
 /wf `<запрос>` — запрос в wolframalpha (взято у https://github.com/arvego/mm-randbot)
+/tts `<текст>` — text to speech, отправляет голосовое сообщение
+
+TechnoconfachBot is open-source, код доступен на https://github.com/reacheight/TechnoconfBot .
+Для связи, ыыы - @reacheight8 .
 
 Больше новостей нет.
 
