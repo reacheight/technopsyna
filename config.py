@@ -12,3 +12,12 @@ wolfram_bad_status_message = "Запрос не найдён.\nЕсли ты в�
 wolfram_empty_query_message = "Использование: `/wolfram <запрос>` или `/wf <запрос>`"
 
 tts_empty_query_message = "Использование: `/tts <запрос>` или `/wf <запрос>`"
+
+pidor_already_registred_message = "Ты уже зарегистрирован в игре!"
+pidor_noone_registred_message = "В игре нет зарегистрированных!"
+pidor_now_registred = "Теперь ты учавствуешь в розыгрыше!"
+pidor_one_registred_message = "Пока только один человек зарегистрировался в игре! Нужно как минимум два!"
+pidor_recognized = "Пидоря дня — @"
+pidor_registred = []
+pidor_text_files = 'data/pidor_data/text_files/'
+pidor_audio_files = 'data/pidor_data/audio_files/'

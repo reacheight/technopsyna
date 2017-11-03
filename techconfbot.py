@@ -1,4 +1,4 @@
-from commands import bl, about_and_help, wolfram, tts
+from commands import bl, about_and_help, wolfram, tts, pidor
 from bot import bot
 
 
@@ -15,6 +15,16 @@ def wf_command(message):
 @bot.message_handler(commands=['tts', 'voice'])
 def tts_command(message):
     tts.text_to_speech(message)
+
+
+@bot.message_handler(commands=['pidoreg'])
+def pidoreg_command(message):
+    pidor.registration(message)
+
+
+@bot.message_handler(commands=['pidor'])
+def pidor_command(message):
+    pidor.choose_winner(message)
 
 
 @bot.message_handler(commands=['help'])
