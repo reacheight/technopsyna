@@ -1,10 +1,15 @@
-from commands import bl, help
+from commands import bl, help, wolfram
 from bot import bot
 
 
 @bot.message_handler(commands=['bl'])
 def bl_command(message):
     bl.my_bl(message)
+
+
+@bot.message_handler(commands=['wf', 'wolfram'])
+def wf_command(message):
+    wolfram.wolfram_solver(message)
 
 
 @bot.message_handler(commands=['help'])
