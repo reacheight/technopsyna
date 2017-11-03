@@ -19,7 +19,7 @@ def tts_command(message):
 
 @bot.message_handler(commands=['help'])
 def help_command(message):
-    about_and_help.help(message)
+    about_and_help.my_help(message)
 
 
 @bot.message_handler(commands=['about', 'start'])
