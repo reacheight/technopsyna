@@ -1,4 +1,4 @@
-from commands import bl, help, wolfram
+from commands import bl, help, wolfram, tts
 from bot import bot
 
 
@@ -10,6 +10,11 @@ def bl_command(message):
 @bot.message_handler(commands=['wf', 'wolfram'])
 def wf_command(message):
     wolfram.wolfram_solver(message)
+
+
+@bot.message_handler(commands=['tts', 'voice'])
+def tts_command(message):
+    tts.text_to_speech(message)
 
 
 @bot.message_handler(commands=['help'])
