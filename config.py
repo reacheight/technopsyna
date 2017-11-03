@@ -2,8 +2,9 @@ import os
 
 token = os.environ['BOT_TOKEN']
 
-bl_text_file = 'data/bl_data/bl_text_messages'
+about_text_file = 'data/about_data/about_text_message'
 help_text_file = 'data/help_data/help_text_message'
+bl_text_file = 'data/bl_data/bl_text_messages'
 bl_images_locations = 'data/bl_data/images/'
 
 wolfram_appid = os.environ['WOLFRAM_APPID']

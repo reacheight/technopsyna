@@ -1,17 +1,10 @@
-Привет!
-Это бот Техноконфы (пидороконфы).
-
-Теперь бот умеет не только Ыкать!
-
 Список команд:
 
 /bl — ыкнуть
-/wf `<запрос>` — запрос в wolframalpha (взято у https://github.com/arvego/mm-randbot)
-/tts `<текст>` — text to speech, отправляет голосовое сообщение
+/wf `<запрос>` (или /wolfram `<запрос>`) — запрос в wolframalpha (взято у @algebrach_bot)
+/voice `<текст>` (или /tts `<текст>`) — text to speech, отправляет голосовое сообщение
 
-TechnoconfachBot is open-source, код доступен на https://github.com/reacheight/TechnoconfBot .
-Для связи, ыыы - @reacheight8 .
+/about или /start — небольшое описание бота
+/help — список доступных команд
 
-Больше новостей нет.
-
-Пока!
+`всё`

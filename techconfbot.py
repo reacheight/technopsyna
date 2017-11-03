@@ -1,4 +1,4 @@
-from commands import bl, help, wolfram, tts
+from commands import bl, about_and_help, wolfram, tts
 from bot import bot
 
 
@@ -19,7 +19,12 @@ def tts_command(message):
 
 @bot.message_handler(commands=['help'])
 def help_command(message):
-    help.bot_command_help(message)
+    about_and_help.help(message)
+
+
+@bot.message_handler(commands=['about', 'start'])
+def about_command(message):
+    about_and_help.about(message)
 
 
 @bot.message_handler(content_types=['text'])
