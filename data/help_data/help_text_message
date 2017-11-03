@@ -6,7 +6,7 @@
 Список команд:
 
 /bl -- ыкнуть
-/wf <запрос> -- запрос в wolframalpha (взято у https://github.com/arvego/mm-randbot)
+/wf `<запрос>` -- запрос в wolframalpha (взято у https://github.com/arvego/mm-randbot)
 
 Больше новостей нет.
 
