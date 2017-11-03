@@ -1,4 +1,7 @@
-token = '461762429:AAHCByDfxgGYMTbkwCPjfwipSX0pYC0nsAE'
+import os
+
+# token = '461762429:AAHCByDfxgGYMTbkwCPjfwipSX0pYC0nsAE'
+token = os.environ['BOT_TOKEN']
 
 bl_text_file = 'data/bl_data/bl_text_messages'
 help_text_file = 'data/help_data/help_text_message'
