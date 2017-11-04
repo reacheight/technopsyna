@@ -8,7 +8,7 @@ from bot import bot
 
 def registration(message):
     if message.from_user.id not in config.pidor_registred:
-        config.pidor_registred.append(message.from_user.id)
+        config.pidor_registred.append(message.from_user)
         bot.reply_to(message, config.pidor_now_registred)
 
     else:
@@ -23,9 +23,9 @@ def choose_winner(message):
         bot.reply_to(message, config.pidor_one_registred_message)
 
     else:
-        pidor_username = message.from_user.username
+        pidor_username = choice(config.pidor_registred).username
 
-        if randint(1, 33) == 22:
+        if randint(1, 100) in range(1, 20):
             audio_files = os.listdir(config.pidor_audio_files)
             random_audio_file = choice(audio_files)
             file = open(config.pidor_audio_files + random_audio_file, 'rb')
