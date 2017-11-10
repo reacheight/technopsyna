@@ -39,15 +39,15 @@ def about_command(message):
     about_and_help.about(message)
 
 
+@bot.message_handler(commands=['kek'])
+def kek(message):
+    bot.send_message(message.chat.id, config.kek_message, reply_to_message_id=message.message_id)
+
+
 @bot.message_handler(content_types=['text'])
 def bl_message(message):
     if 'ыыы' in message.text:
         bl.basic_bl(message)
-
-
-@bot.message_handler(commands=['kek'])
-def kek(message):
-    bot.reply_to(message, config.kek_message)
 
 
 @bot.inline_handler(func=lambda query: len(query.query) > 0)
