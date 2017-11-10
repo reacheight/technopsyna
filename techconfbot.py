@@ -1,6 +1,8 @@
 from commands import bl, about_and_help, wolfram, tts, pidor
 from bot import bot
 
+import config
+
 
 @bot.message_handler(commands=['bl'])
 def bl_command(message):
@@ -41,6 +43,11 @@ def about_command(message):
 def bl_message(message):
     if 'ыыы' in message.text:
         bl.basic_bl(message)
+
+
+@bot.message_handler(content_types=['kek'])
+def kek(message):
+    bot.reply_to(message, config.kek_message)
 
 
 @bot.inline_handler(func=lambda query: len(query.query) > 0)

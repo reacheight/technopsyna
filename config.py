@@ -23,3 +23,5 @@ pidor_text_files = 'data/pidor_data/text_files/'
 pidor_audio_files = 'data/pidor_data/audio_files/'
 
 my_id = os.environ['MY_ID']
+
+kek_message = "Вы ботом ошиблись.."
