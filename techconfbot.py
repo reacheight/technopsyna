@@ -9,7 +9,7 @@ def bl_command(message):
 
 @bot.message_handler(commands=['wf', 'wolfram'])
 def wf_command(message):
-    wolfram.wolfram_solver(message)
+    wolfram.wolfram_command(message)
 
 
 @bot.message_handler(commands=['tts', 'voice'])
@@ -41,6 +41,16 @@ def about_command(message):
 def bl_message(message):
     if 'ыыы' in message.text:
         bl.basic_bl(message)
+
+
+@bot.inline_handler(func=lambda query: len(query.query) > 0)
+def query_text(query):
+    com = query.query.split()[0]
+    if com == 'wf':
+        wolfram.wolfram_inline(query)
+
+    elif com == 'voice' or com == 'tts':
+        tts.text_to_speech_inline(query)
 
 
 bot.polling(none_stop=True)
