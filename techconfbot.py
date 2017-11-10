@@ -45,7 +45,7 @@ def bl_message(message):
         bl.basic_bl(message)
 
 
-@bot.message_handler(content_types=['kek'])
+@bot.message_handler(commands=['kek'])
 def kek(message):
     bot.reply_to(message, config.kek_message)
 
