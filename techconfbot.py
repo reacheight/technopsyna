@@ -53,7 +53,7 @@ def bl_message(message):
         bot.send_sticker(message.chat.id, config.cho_pacani_anime_sticker, reply_to_message_id=message.message_id)
 
 
-@bot.inline_handler(func=lambda query: len(query.query) > 0)
+@bot.inline_handler(func=lambda query: len(query.query.split()) > 1)
 def query_text(query):
     com = query.query.split()[0]
     if com == 'wf':

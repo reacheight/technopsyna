@@ -7,8 +7,9 @@ from bot import bot
 
 
 def create_voice_file(text):
-    if len(text.split()) > 1:
-        voice = gTTS(text=' '.join(text.split()[1:]), lang='ru')
+    splited_text = text.split(maxsplit=1)
+    if len(splited_text) > 1:
+        voice = gTTS(splited_text[1], lang='ru')
         voice.save("voice_file.ogg")
 
 

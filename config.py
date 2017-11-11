@@ -11,7 +11,7 @@ wolfram_appid = os.environ['WOLFRAM_APPID']
 wolfram_bad_status_message = "Запрос не найдён.\nЕсли ты ввёл его на русском, то попробуй ввести его на английском."
 wolfram_empty_query_message = "Использование: `/wolfram <запрос>` или `/wf <запрос>`"
 
-tts_empty_query_message = "Использование: `/tts <запрос>` или `/wf <запрос>`"
+tts_empty_query_message = "Использование: `/voice <запрос>` или `/tts <запрос>`"
 
 pidor_already_registred_message = "Ты уже зарегистрирован в игре!"
 pidor_noone_registred_message = "В игре нет зарегистрированных!"
