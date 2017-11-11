@@ -25,3 +25,5 @@ pidor_audio_files = 'data/pidor_data/audio_files/'
 my_id = os.environ['MY_ID']
 
 kek_message = "Вы ботом ошиблись.."
+
+cho_pacani_anime_sticker = 'CAADAgADFwADWmd_DLq2Y8q2ciHRAg'

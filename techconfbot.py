@@ -49,6 +49,9 @@ def bl_message(message):
     if 'ыыы' in message.text:
         bl.basic_bl(message)
 
+    if "че пацаны аниме?" in message.text or "чё пацаны аниме?" in message.text or "чо пацаны аниме?" in message.text:
+        bot.send_sticker(message.chat.id, config.cho_pacani_anime_sticker, reply_to_message_id=message.message_id)
+
 
 @bot.inline_handler(func=lambda query: len(query.query) > 0)
 def query_text(query):
