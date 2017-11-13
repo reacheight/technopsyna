@@ -52,6 +52,10 @@ def bl_message(message):
     if "че пацаны аниме?" in message.text or "чё пацаны аниме?" in message.text or "чо пацаны аниме?" in message.text:
         bot.send_sticker(message.chat.id, config.cho_pacani_anime_sticker, reply_to_message_id=message.message_id)
 
+    if message.text == "пошел нахуй" and (message.from_user.username == 'MaliciousMoon' or
+                                                  message.from_user.first_name == 'Detur'):
+        bot.reply_to(message, "пошёл ты на хуй сам, детурище")
+
 
 @bot.inline_handler(func=lambda query: len(query.query.split()) > 1)
 def query_text(query):
