@@ -1,4 +1,4 @@
-from commands import bl, about_and_help, wolfram, tts, pidor
+from commands import bl, about_and_help, wolfram, tts, pidor, deer
 from bot import bot
 
 import config
@@ -17,6 +17,11 @@ def wf_command(message):
 @bot.message_handler(commands=['tts', 'voice'])
 def tts_command(message):
     tts.text_to_speech(message)
+
+
+@bot.message_handler(commands=['deer_message'])
+def deer_message_command(message):
+    deer.get_messages(message)
 
 
 @bot.message_handler(commands=['pidoreg'])

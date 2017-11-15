@@ -6,6 +6,7 @@ about_text_file = 'data/about_data/about_text_message'
 help_text_file = 'data/help_data/help_text_message'
 bl_text_file = 'data/bl_data/bl_text_messages'
 bl_images_locations = 'data/bl_data/images/'
+deer_messages_location = 'data/deer_data/messages'
 
 wolfram_appid = os.environ['WOLFRAM_APPID']
 wolfram_bad_status_message = "Запрос не найдён.\nЕсли ты ввёл его на русском, то попробуй ввести его на английском."
