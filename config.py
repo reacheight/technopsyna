@@ -28,3 +28,7 @@ my_id = os.environ['MY_ID']
 kek_message = "Вы ботом ошиблись.."
 
 cho_pacani_anime_sticker = 'CAADAgADFwADWmd_DLq2Y8q2ciHRAg'
+
+chto_pacani_pattern = r"ч((то)|[еоё]) (.* )*п[оа][цс][оа]ны (.* )*[оа]н[иея]м[эе]"
+fuck_u_from_detur_pattern = r"(.* )*((иди)|(пош[оеё]л)) (.* )*на( *.*)хуй"
+fuck_u_detur = "пошёл ты на хуй сам, детурище"
