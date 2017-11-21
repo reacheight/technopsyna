@@ -74,4 +74,5 @@ def query_text(query):
         tts.text_to_speech_inline(query)
 
 
+bot.skip_pending = True # чтобы можно было просто задеплоить
 bot.polling(none_stop=True)
