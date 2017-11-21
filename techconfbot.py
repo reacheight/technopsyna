@@ -66,12 +66,12 @@ def bl_message(message):
     if 'ыыы' in message.text:
         bl.basic_bl(message)
 
-    if re.search(config.chto_pacani_pattern, message.text):
-        bot.send_sticker(message.chat.id, config.cho_pacani_anime_sticker, reply_to_message_id=message.message_id)
-
-    if re.search(config.fuck_u_from_detur_pattern, message.text) and (message.from_user.username == 'MaliciousMoon' or
-                                                  message.from_user.first_name == 'Detur'):
-        bot.reply_to(message, config.fuck_u_detur)
+    # if re.search(config.chto_pacani_pattern, message.text):
+    #     bot.send_sticker(message.chat.id, config.cho_pacani_anime_sticker, reply_to_message_id=message.message_id)
+    #
+    # if re.search(config.fuck_u_from_detur_pattern, message.text) and (message.from_user.username == 'MaliciousMoon' or
+    #                                               message.from_user.first_name == 'Detur'):
+    #     bot.reply_to(message, config.fuck_u_detur)
 
     log(message)
 
