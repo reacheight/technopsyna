@@ -19,6 +19,8 @@ wolfram_empty_query_message = "Использование: `/wolfram <запро
 
 tts_empty_query_message = "Использование: `/voice <запрос>` или `/tts <запрос>`"
 
+random_test_error_subject = "Использование: /random\_test `math` или `inf` или `rus` или `phys`"
+
 my_id = os.environ['MY_ID']
 
 kek_message = "Вы ботом ошиблись.."

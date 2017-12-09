@@ -6,7 +6,6 @@ from random import choice
 
 def get_random_test(subject):
     a = []
-
     with open(config.test_files[subject], "r") as f:
         a = f.readlines()
 
@@ -15,4 +14,9 @@ def get_random_test(subject):
 
 def random_test(message):
     subject = message.text.split()[1]
+
+    if subject not in config.test_files:
+        bot.send_message(message.chat.id, config.random_test_error_subject, parse_mode='Markdown')
+        return
+
     bot.reply_to(message, get_random_test(subject))
