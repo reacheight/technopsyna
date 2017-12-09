@@ -13,10 +13,9 @@ def get_random_test(subject):
 
 
 def random_test(message):
-    subject = message.text.split()[1]
-
-    if subject not in config.test_files:
+    splited = message.text.split()
+    if len(message.text.split() < 1) or splited[1] not in config.test_files:
         bot.reply_to(message, config.random_test_error_subject, parse_mode='Markdown')
         return
 
-    bot.reply_to(message, get_random_test(subject))
+    bot.reply_to(message, get_random_test(splited[1]))
