@@ -1,10 +1,16 @@
 import re
 
-from commands import bl, about_and_help, wolfram, tts, pidor, deer
+from commands import bl, about_and_help, wolfram, tts, pidor, deer, random_test
 from bot import bot
 from log import log
 
 import config
+
+
+@bot.message_handler(commands=['random_test'])
+def random_test_command(message):
+    random_test.random_test(message)
+    log(message)
 
 
 @bot.message_handler(commands=['bl'])
