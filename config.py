@@ -19,15 +19,6 @@ wolfram_empty_query_message = "Использование: `/wolfram <запро
 
 tts_empty_query_message = "Использование: `/voice <запрос>` или `/tts <запрос>`"
 
-pidor_already_registred_message = "Ты уже зарегистрирован в игре!"
-pidor_noone_registred_message = "В игре нет зарегистрированных!"
-pidor_now_registred = "Теперь ты учавствуешь в розыгрыше!"
-pidor_one_registred_message = "Пока только один человек зарегистрировался в игре! Нужно как минимум два!"
-pidor_recognized = "Пидоря дня — @"
-pidor_registred = []
-pidor_text_files = 'data/pidor_data/text_files/'
-pidor_audio_files = 'data/pidor_data/audio_files/'
-
 my_id = os.environ['MY_ID']
 
 kek_message = "Вы ботом ошиблись.."

@@ -1,6 +1,6 @@
 import re
 
-from commands import bl, about_and_help, wolfram, tts, pidor, deer, random_test
+from commands import bl, about_and_help, wolfram, tts, deer, random_test
 from bot import bot
 from log import log
 
@@ -34,18 +34,6 @@ def tts_command(message):
 @bot.message_handler(commands=['deer_message'])
 def deer_message_command(message):
     deer.get_messages(message)
-    log(message)
-
-
-@bot.message_handler(commands=['pidoreg'])
-def pidoreg_command(message):
-    pidor.registration(message)
-    log(message)
-
-
-@bot.message_handler(commands=['pidor'])
-def pidor_command(message):
-    pidor.choose_winner(message)
     log(message)
 
 
