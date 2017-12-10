@@ -1,6 +1,6 @@
 import re
 
-from commands import bl, about_and_help, wolfram, tts, deer, random_test
+from commands import bl, about_and_help, wolfram, tts, deer, random_test, useful_links
 from bot import bot
 from log import log
 
@@ -46,6 +46,11 @@ def help_command(message):
 @bot.message_handler(commands=['about', 'start'])
 def about_command(message):
     about_and_help.about(message)
+    log(message)
+
+@bot.message_handler(commands=['links'])
+def useful_links_command(message):
+    useful_links.links(message)
     log(message)
 
 
