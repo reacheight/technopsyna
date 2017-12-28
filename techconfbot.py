@@ -1,6 +1,6 @@
 import re
 
-from commands import bl, about_and_help, wolfram, tts, deer, random_test, useful_links
+from commands import bl, about_and_help, wolfram, tts, deer, random_test, useful_links, number_fact
 from bot import bot
 from log import log
 
@@ -28,6 +28,12 @@ def wf_command(message):
 @bot.message_handler(commands=['tts', 'voice'])
 def tts_command(message):
     tts.text_to_speech(message)
+    log(message)
+
+
+@bot.message_handler(commands=['number_fact'])
+def number_fact_command(message):
+    number_fact.type_number_fact(message)
     log(message)
 
 

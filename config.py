@@ -22,9 +22,14 @@ tts_empty_query_message = "Использование: `/voice <запрос>` �
 
 random_test_error_subject = "Использование: /random\_test `math` или `inf` или `rus` или `phys`"
 
+number_fact_empty = "Использование: /number\_fact `число`"
+
 my_id = os.environ['MY_ID']
 
 kek_message = "Вы ботом ошиблись.."
 
 cho_pacani_anime_sticker = 'CAADAgADJwADtIuIDaIy4m-uZXREAg'
 chto_pacani_pattern = r'(?iu).*чт?[оеё],? п[ао][цс][ао]ны'
+integer_pattern = r'[\d]+'
+
+number_api_url = 'http://numbersapi.com/'
