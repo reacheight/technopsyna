@@ -33,3 +33,5 @@ chto_pacani_pattern = r'(?iu).*чт?[оеё],? п[ао][цс][ао]ны'
 integer_pattern = r'[\d]+'
 
 number_api_url = 'http://numbersapi.com/'
+
+deer_dembel_date = {'year' : 2018, 'month' : 12, 'day' : 14}

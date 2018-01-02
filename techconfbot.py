@@ -1,6 +1,6 @@
 import re
 
-from commands import bl, about_and_help, wolfram, tts, deer, random_test, useful_links, number_fact
+from commands import bl, about_and_help, wolfram, tts, deer, random_test, useful_links, number_fact, dembel_countdown
 from bot import bot
 from log import log
 
@@ -28,6 +28,12 @@ def wf_command(message):
 @bot.message_handler(commands=['tts', 'voice'])
 def tts_command(message):
     tts.text_to_speech(message)
+    log(message)
+
+
+@bot.message_handler(commands=['dembel'])
+def dembel_command(message):
+    dembel_countdown.dmb_days(message)
     log(message)
 
 
