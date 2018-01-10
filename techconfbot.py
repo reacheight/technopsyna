@@ -85,12 +85,14 @@ def bl_message(message):
 
 @bot.message_handler(content_types=['new_chat_members'])
 def new_member_greeting(message):
+    chatname = message.chat.title
     username = message.new_chat_members[0].username
 
-    if username:
-        bot.send_message(message.chat.id, '@' + username)
+    if chatname == config.technoconfa:
+        if username:
+            bot.send_message(message.chat.id, '@' + username)
 
-    bot.send_sticker(message.chat.id, config.chto_sdaesh_sticker)
+        bot.send_sticker(message.chat.id, config.chto_sdaesh_sticker)
 
 
 @bot.inline_handler(func=lambda query: len(query.query.split()) > 1)
