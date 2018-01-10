@@ -28,6 +28,7 @@ my_id = os.environ['MY_ID']
 
 kek_message = "Вы ботом ошиблись.."
 
+chto_sdaesh_sticker = 'CAADAgADrQEAAm29TQUoveU--qPBlAI'
 cho_pacani_anime_sticker = 'CAADAgADJwADtIuIDaIy4m-uZXREAg'
 chto_pacani_pattern = r'(?iu).*чт?[оеё],? п[ао][цс][ао]ны'
 integer_pattern = r'[\d]+'
