@@ -14,6 +14,10 @@ def basic_bl(message):
 
 
 def my_bl(message):
+    if message.chat.id == config.technoconfa:
+        bot.reply_to(message, "Не флудите.")
+        return
+
     if randint(1, 33) == 22:
         imgs = os.listdir(config.bl_images_locations)
         random_file = choice(imgs)
