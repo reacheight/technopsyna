@@ -14,7 +14,7 @@ def basic_bl(message):
 
 
 def my_bl(message):
-    if message.chat.id == config.technoconfa:
+    if message.chat.title == config.technoconfa:
         bot.reply_to(message, "Не флудите.")
         return
 
