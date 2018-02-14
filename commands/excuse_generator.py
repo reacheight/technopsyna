@@ -16,8 +16,8 @@ def generate_excuse(object):
 
 
 def send_excuse(message):
-    splited = message.split(maxsplit=1)
-    if len(splited) < 1:
+    splited = message.text.split(maxsplit=1)
+    if len(splited) < 2:
         bot.reply_to(message, config.excuse_empty_message, parse_mode="Markdown")
         return
 
