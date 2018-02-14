@@ -6,7 +6,7 @@ from random import randint, choice
 def generate_excuse(object):
     if randint(1, 10) > 5:
         with open(config.pre_excuses, 'r') as f:
-            excuse = choice(f.readlines()) + ' ' + object
+            excuse = choice(f.readlines()).lstrip() + ' ' + object
 
     else:
         with open(config.post_excuses, 'r') as f:
