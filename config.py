@@ -38,3 +38,7 @@ number_api_url = 'http://numbersapi.com/'
 deer_dembel_date = {'year' : 2018, 'month' : 12, 'day' : 14}
 
 technoconfa = 'Техноконфа_2018'
+
+post_excuses = 'data/excuses/post_excuses'
+pre_excuses = 'data/excuses/pre_excuses'
+excuse_empty_message = "Использование: /excuse `<что вы хотите оправдать>`"

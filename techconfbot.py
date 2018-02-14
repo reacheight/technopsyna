@@ -1,6 +1,7 @@
 import re
 
-from commands import bl, about_and_help, wolfram, tts, deer, random_test, useful_links, number_fact, dembel_countdown
+from commands import bl, about_and_help, wolfram, tts, deer, random_test, useful_links, number_fact, dembel_countdown,\
+    excuse_generator
 from bot import bot
 
 import config
@@ -29,6 +30,11 @@ def tts_command(message):
 @bot.message_handler(commands=['dembel'])
 def dembel_command(message):
     dembel_countdown.dmb_days(message)
+
+
+@bot.message_handler(commands=['excuse'])
+def excuse_command(message):
+    excuse_generator.send_excuse(message)
 
 
 @bot.message_handler(commands=['number_fact'])
