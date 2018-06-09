@@ -1,10 +1,15 @@
 import re
 
 from commands import bl, about_and_help, wolfram, tts, deer, random_test, useful_links, number_fact, dembel_countdown,\
-    excuse_generator
+    excuse_generator, passing_scores
 from bot import bot
 
 import config
+
+
+@bot.message_handler(commands=['passing_scores'])
+def passing_scores_command(message):
+    passing_scores.passing_scores(message)
 
 
 @bot.message_handler(commands=['random_test'])

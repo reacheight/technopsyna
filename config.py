@@ -9,6 +9,7 @@ bl_images_locations = 'data/bl_data/images/'
 deer_messages_location = 'data/deer_data/messages'
 math_test_file = 'data/tests/math'
 links_list = 'data/links_list'
+passing_scores_file = 'data/passing_scores'
 test_files = {'math' : 'data/tests/math',
               'rus' : 'data/tests/rus',
               'phys' : 'data/tests/phys',
