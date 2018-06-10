@@ -4,9 +4,9 @@ token = os.environ['BOT_TOKEN']
 my_id = int(os.environ['MY_ID'])
 
 text_command_file = {
-    'about': 'data/about_data/about_text_message',
-    'start': 'data/about_data/about_text_message',
-    'help': 'data/help_data/help_text_message',
+    'about': 'data/about_command_text',
+    'start': 'data/about_command_text',
+    'help': 'data/help_command_text',
     'links': 'data/links_list',
     'passing_scores': 'data/passing_scores'
 }
