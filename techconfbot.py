@@ -29,13 +29,13 @@ def wf_command(message):
 
 @bot.message_handler(commands=['dembel'])
 def dembel_command(message):
-    dembel_countdown.dmb_days(message)
+    dembel_countdown.dembel_command(message)
 
 
 @bot.message_handler(content_types=['text'])
 def bl_message(message):
     if 'ыыы' in message.text:
-        bl.basic_bl(message)
+        bl.bl_string(message)
 
     if re.search(config.chto_pacani_pattern, message.text):
         bot.send_sticker(message.chat.id, config.cho_pacani_anime_sticker, reply_to_message_id=message.message_id)
