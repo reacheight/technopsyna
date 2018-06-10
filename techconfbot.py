@@ -3,10 +3,12 @@ import config
 
 from commands import bl, wolfram, dembel_countdown
 from bot import bot
+from logger import log
 
 
 @bot.message_handler(commands=['start', 'about', 'help', 'links', 'passing_scores'])
 def text_commands(message):
+    log(message)
     command = message.text.split(maxsplit=1)[0][1:]
     if command.lower().endswith(config.bot_username):
         command = command[:-17]
@@ -19,16 +21,19 @@ def text_commands(message):
 
 @bot.message_handler(commands=['bl'])
 def bl_command(message):
+    log(message)
     bl.bl_command(message)
 
 
 @bot.message_handler(commands=['wf'])
 def wf_command(message):
+    log(message)
     wolfram.wolfram_command(message)
 
 
 @bot.message_handler(commands=['dembel'])
 def dembel_command(message):
+    log(message)
     dembel_countdown.dembel_command(message)
 
 

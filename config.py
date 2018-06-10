@@ -27,3 +27,5 @@ deer_dembel_date = {'year': 2018, 'month': 12, 'day': 13}
 
 technoconfa_chatname = 'Техноконфа_2018'
 bot_username = '@technoconfachbot'
+
+logs_channel = '@technocofachbot_logs'
