@@ -8,7 +8,7 @@ from bot import bot
 @bot.message_handler(commands=['start', 'about', 'help', 'links', 'passing_scores'])
 def text_commands(message):
     command = message.text.split(maxsplit=1)[0][1:]
-    if command.lower().endswith('@technoconfachbot'):
+    if command.lower().endswith(config.bot_username):
         command = command[:-17]
 
     if command in config.text_command_file.keys():
@@ -47,9 +47,9 @@ def new_member_greeting(message):
     user = message.new_chat_members[0]
     username = '@' + user.username if user.username else user.first_name
 
-    if chatname == config.technoconfa:
+    if chatname == config.technoconfa_chatname:
         bot.send_message(message.chat.id, 'Привет, ' + username + '!')
-        bot.send_sticker(message.chat.id, config.chto_sdaesh_sticker)
+        bot.send_sticker(message.chat.id, config.new_member_sticker)
 
 
 @bot.inline_handler(func=lambda query: len(query.query.split()) > 1)
