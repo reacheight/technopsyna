@@ -11,9 +11,10 @@ def text_commands(message):
     if command.lower().endswith('@technoconfachbot'):
         command = command[:-17]
 
-    with open(config.text_command_file[command], 'r') as file:
-        bot.send_message(message.chat.id, file.read().strip(), parse_mode='Markdown',
-                         disable_web_page_preview=True)
+    if command in config.text_command_file.keys():
+        with open(config.text_command_file[command], 'r') as file:
+            bot.send_message(message.chat.id, file.read().strip(), parse_mode='Markdown',
+                             disable_web_page_preview=True)
 
 
 @bot.message_handler(commands=['bl'])
