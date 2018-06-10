@@ -1,14 +1,16 @@
 import re
-
-from commands import bl, about_and_help, wolfram, useful_links, dembel_countdown, passing_scores
-from bot import bot
-
 import config
 
+from commands import bl, wolfram, dembel_countdown
+from bot import bot
 
-@bot.message_handler(commands=['passing_scores'])
-def passing_scores_command(message):
-    passing_scores.passing_scores(message)
+
+@bot.message_handler(commands=['start', 'about', 'help', 'links', 'passing_scores'])
+def text_commands(message):
+    command = message.text.split(maxsplit=1)[0][1:]
+    with open(config.text_command_file[command], 'r') as file:
+        bot.send_message(message.chat.id, file.read().strip(), parse_mode='Markdown',
+                         disable_web_page_preview=True)
 
 
 @bot.message_handler(commands=['bl'])
@@ -24,21 +26,6 @@ def wf_command(message):
 @bot.message_handler(commands=['dembel'])
 def dembel_command(message):
     dembel_countdown.dmb_days(message)
-
-
-@bot.message_handler(commands=['help'])
-def help_command(message):
-    about_and_help.my_help(message)
-
-
-@bot.message_handler(commands=['about', 'start'])
-def about_command(message):
-    about_and_help.about(message)
-
-
-@bot.message_handler(commands=['links'])
-def useful_links_command(message):
-    useful_links.links(message)
 
 
 @bot.message_handler(content_types=['text'])

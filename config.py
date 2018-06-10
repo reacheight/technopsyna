@@ -2,6 +2,14 @@ import os
 
 token = os.environ['BOT_TOKEN']
 
+text_command_file = {
+    'about': 'data/about_data/about_text_message',
+    'start': 'data/about_data/about_text_message',
+    'help': 'data/help_data/help_text_message',
+    'links': 'data/links_list',
+    'passing_scores': 'data/passing_scores'
+}
+
 about_text_file = 'data/about_data/about_text_message'
 help_text_file = 'data/help_data/help_text_message'
 bl_text_file = 'data/bl_data/bl_text_messages'
