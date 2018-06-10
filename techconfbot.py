@@ -8,6 +8,9 @@ from bot import bot
 @bot.message_handler(commands=['start', 'about', 'help', 'links', 'passing_scores'])
 def text_commands(message):
     command = message.text.split(maxsplit=1)[0][1:]
+    if command.lower().endswith('@technoconfachbot'):
+        command = command[:-17]
+
     with open(config.text_command_file[command], 'r') as file:
         bot.send_message(message.chat.id, file.read().strip(), parse_mode='Markdown',
                          disable_web_page_preview=True)
