@@ -10,19 +10,19 @@ wolfram_max_ratio = 2.5
 
 
 def wolfram_parser(query):
-    splited_query = query.split(maxsplit=1)
-    if len(splited_query) <= 1:
+    try:
+        query = query.split(maxsplit=1)[1]
+    except KeyError:
         return 0, None, None
 
-    response = requests.get("https://api.wolframalpha.com/v1/simple?appid=" + config.wolfram_appid,
-                            params={'i': splited_query[1]})
+    response = requests.get(config.wolfram_url, params={'i': query})
 
     if response.status_code == 200:
         img_original = Image.open(io.BytesIO(response.content))
         img_cropped = img_original.crop((0, 95, 540, img_original.size[1] - 50))
         io_img = io.BytesIO()
-        io_img.name = "wolfram {}.png".format(query.replace("/", "_"))
-        img_cropped.save(io_img, format="png")
+        io_img.name = 'wolfram {}.png'.format(query.replace('/', '_'))
+        img_cropped.save(io_img, format='png')
         io_img.seek(0)
 
         return 1, io_img, img_cropped.size[1] / img_cropped.size[0]
@@ -53,12 +53,12 @@ def wolfram_inline(query):
 
     if code == 1:
         if ratio > wolfram_max_ratio:
-            d = bot.send_document(int(config.my_id), result)
-            r = types.InlineQueryResultCachedDocument(id='1', title=result.name,
-                                                      document_file_id=d.document.file_id)
-            bot.answer_inline_query(query.id, [r])
+            message = bot.send_document(config.my_id, result)
+            response = types.InlineQueryResultCachedDocument(id='1', title=result.name,
+                                                      document_file_id=message.document.file_id)
+            bot.answer_inline_query(query.id, [response])
 
         else:
-            p = bot.send_photo(int(config.my_id), result)
-            r = types.InlineQueryResultCachedPhoto(id='1', photo_file_id=p.photo[-1].file_id)
-            bot.answer_inline_query(query.id, [r])
+            message = bot.send_photo(config.my_id, result)
+            response = types.InlineQueryResultCachedPhoto(id='1', photo_file_id=message.photo[-1].file_id)
+            bot.answer_inline_query(query.id, [response])

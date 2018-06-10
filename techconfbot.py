@@ -19,10 +19,10 @@ def text_commands(message):
 
 @bot.message_handler(commands=['bl'])
 def bl_command(message):
-    bl.my_bl(message)
+    bl.bl_command(message)
 
 
-@bot.message_handler(commands=['wf', 'wolfram'])
+@bot.message_handler(commands=['wf'])
 def wf_command(message):
     wolfram.wolfram_command(message)
 
