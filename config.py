@@ -7,7 +7,7 @@ text_command_file = {
     'about': 'data/about_command_text',
     'start': 'data/about_command_text',
     'help': 'data/help_command_text',
-    'links': 'data/links_list',
+    'wiki': 'data/wiki_command_text',
     'passing_scores': 'data/passing_scores'
 }
 
