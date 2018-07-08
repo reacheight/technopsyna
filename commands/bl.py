@@ -14,8 +14,9 @@ def bl_string(message):
 
 
 def bl_command(message):
-    if message.chat.title == config.technoconfa_chatname and randint(1, 10) > 7:
-        bot.send_message(message.chat.id, 'Не флудите.')
+    if message.chat.title == config.technoconfa_chatname:
+        if randint(1, 10) > 7:
+            bot.send_message(message.chat.id, 'Не флудите.')
         return
 
     if randint(1, 33) == 22:
