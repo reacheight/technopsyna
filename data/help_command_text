@@ -1,6 +1,5 @@
 *Список команд:*
 
-/bl — ыкнуть
 /wiki — ссылки на technoconfa wiki
 /passing\_scores — ссылки на проходные баллы прошлых лет
 /wf `<запрос>` — запрос в wolframalpha (взято у [бота чата мехмата](https://t.me/algebrach_bot))
