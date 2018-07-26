@@ -8,7 +8,8 @@ text_command_file = {
     'start': 'data/about_command_text',
     'help': 'data/help_command_text',
     'wiki': 'data/wiki_command_text',
-    'passing_scores': 'data/passing_scores'
+    'passing_scores': 'data/passing_scores',
+    'olymp_privileges': 'data/olymp_privileges'
 }
 
 bl_text_file = 'data/bl_data/bl_text_messages'

@@ -6,7 +6,7 @@ from bot import bot
 from logger import log
 
 
-@bot.message_handler(commands=['start', 'about', 'help', 'passing_scores', 'wiki'])
+@bot.message_handler(commands=['start', 'about', 'help', 'passing_scores', 'wiki', 'olymp_privileges'])
 def text_commands(message):
     log(message)
     command = message.text.split(maxsplit=1)[0][1:]
