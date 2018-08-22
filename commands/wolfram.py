@@ -12,7 +12,7 @@ wolfram_max_ratio = 2.5
 def wolfram_parser(query):
     try:
         query = query.split(maxsplit=1)[1]
-    except KeyError:
+    except IndexError:
         return 0, None, None
 
     response = requests.get(config.wolfram_url, params={'i': query})
