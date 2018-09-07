@@ -28,8 +28,9 @@ def bl_command(message):
 @bot.message_handler(commands=['matan'])
 def matan_command(message):
     log(message)
-    with open(config.matan_image, 'rb') as image:
-        bot.send_photo(message.chat.id, image)
+    if message.from_user.id == config.my_id:
+        with open(config.matan_image, 'rb') as image:
+            bot.send_photo(message.chat.id, image)
 
 
 @bot.message_handler(commands=['wf'])
