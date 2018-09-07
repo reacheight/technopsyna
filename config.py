@@ -30,3 +30,5 @@ technoconfa_chatname = 'Техноконфа_2019'
 bot_username = '@technoconfachbot'
 
 logs_channel = '@technocofachbot_logs'
+
+matan_image = 'data/matan.jpg'

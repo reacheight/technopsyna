@@ -25,6 +25,13 @@ def bl_command(message):
     bl.bl_command(message)
 
 
+@bot.message_handler(commands=['matan'])
+def matan_command(message):
+    log(message)
+    with open(config.matan_image, 'rb') as image:
+        bot.send_photo(message.chat.id, image)
+
+
 @bot.message_handler(commands=['wf'])
 def wf_command(message):
     log(message)
