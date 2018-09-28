@@ -18,7 +18,7 @@ bl_images_locations = 'data/bl_data/images/'
 wolfram_appid = os.environ['WOLFRAM_APPID']
 wolfram_url = "https://api.wolframalpha.com/v1/simple?appid=" + wolfram_appid
 wolfram_bad_status_message = "Запрос не найдён.\nЕсли ты ввёл его на русском, то попробуй ввести его на английском."
-wolfram_empty_query_message = "Использование: `/wolfram <запрос>` или `/wf <запрос>`"
+wolfram_empty_query_message = "Использование: `/wf <запрос>`"
 
 new_member_sticker = 'CAADAgADrQEAAm29TQUoveU--qPBlAI'
 cho_pacani_anime_sticker = 'CAADAgADJwADtIuIDaIy4m-uZXREAg'
