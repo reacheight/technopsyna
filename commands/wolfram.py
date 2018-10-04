@@ -4,7 +4,7 @@ from PIL import Image
 from telebot import types
 
 import config
-from bot import bot
+from techconfbot import bot
 
 wolfram_max_ratio = 2.5
 

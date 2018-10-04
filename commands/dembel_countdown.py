@@ -1,7 +1,7 @@
 from datetime import date
 
 import config
-from bot import bot
+from techconfbot import bot
 
 
 def count_of_days_before_dmb():
