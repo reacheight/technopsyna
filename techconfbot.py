@@ -1,12 +1,9 @@
-import telebot
 import re
 import config
 
+from bot import bot
 from commands import bl, wolfram, dembel_countdown
 from logger import log
-
-bot = telebot.TeleBot(config.token)
-
 
 @bot.message_handler(commands=['start', 'about', 'help', 'passing_scores', 'wiki', 'olymp_privileges'])
 def text_commands(message):

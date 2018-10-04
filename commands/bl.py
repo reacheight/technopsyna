@@ -2,7 +2,7 @@ import os
 from random import choice, randint
 
 import config
-from techconfbot import bot
+from bot import bot
 
 
 def bl_string(message):

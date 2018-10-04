@@ -1,5 +1,5 @@
 import config
-from techconfbot import bot
+from bot import bot
 
 from datetime import datetime
 
