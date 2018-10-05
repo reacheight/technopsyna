@@ -9,7 +9,7 @@ from logger import log
 @bot.message_handler(commands=list(config.text_commands.keys()))
 def text_commands(message):
     log(message)
-    command = message.text.split('@', 1)[0]
+    command = message.text.split('@', 1)[0][1:]
 
     with open(config.text_commands[command], 'r') as file:
         bot.send_message(message.chat.id, file.read().strip(), parse_mode='Markdown',

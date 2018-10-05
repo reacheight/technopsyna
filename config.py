@@ -4,12 +4,12 @@ token = os.environ['BOT_TOKEN']
 my_id = int(os.environ['MY_ID'])
 
 text_commands = {
-    '/about': 'data/about_command_text',
-    '/start': 'data/about_command_text',
-    '/help': 'data/help_command_text',
-    '/wiki': 'data/wiki_command_text',
-    '/passing_scores': 'data/passing_scores',
-    '/olymp_privileges': 'data/olymp_privileges'
+    'about': 'data/about_command_text',
+    'start': 'data/about_command_text',
+    'help': 'data/help_command_text',
+    'wiki': 'data/wiki_command_text',
+    'passing_scores': 'data/passing_scores',
+    'olymp_privileges': 'data/olymp_privileges'
 }
 
 bl_text_file = 'data/bl_data/bl_text_messages'
