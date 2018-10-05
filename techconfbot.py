@@ -6,17 +6,14 @@ from commands import bl, wolfram, dembel_countdown
 from logger import log
 
 
-@bot.message_handler(commands=['start', 'about', 'help', 'passing_scores', 'wiki', 'olymp_privileges'])
+@bot.message_handler(commands=list(config.text_commands.keys()))
 def text_commands(message):
     log(message)
-    command = message.text.split(maxsplit=1)[0][1:]
-    if command.lower().endswith(config.bot_username):
-        command = command[:-17]
+    command = message.text.split('@', 1)[0]
 
-    if command in config.text_command_file.keys():
-        with open(config.text_command_file[command], 'r') as file:
-            bot.send_message(message.chat.id, file.read().strip(), parse_mode='Markdown',
-                             disable_web_page_preview=True)
+    with open(config.text_commands[command], 'r') as file:
+        bot.send_message(message.chat.id, file.read().strip(), parse_mode='Markdown',
+                         disable_web_page_preview=True)
 
 
 @bot.message_handler(commands=['bl'])
@@ -48,21 +45,24 @@ def dembel_command(message):
 @bot.message_handler(content_types=['text'])
 def bl_message(message):
     if 'ыыы' in message.text:
-        bl.bl_string(message)
+        bl.bl_string_message(message)
 
     if re.search(config.chto_pacani_pattern, message.text):
-        bot.send_sticker(message.chat.id, config.cho_pacani_anime_sticker, reply_to_message_id=message.message_id)
+        bot.send_sticker(message.chat.id, config.cho_pacani_sticker, reply_to_message_id=message.message_id)
 
 
 @bot.message_handler(content_types=['new_chat_members'])
 def new_member_greeting(message):
-    chatname = message.chat.title
+    chat_name = message.chat.title
+
+    if chat_name != config.technoconfa_chatname:
+        return
+
     user = message.new_chat_members[0]
     username = '@' + user.username if user.username else user.first_name
 
-    if chatname == config.technoconfa_chatname:
-        bot.send_message(message.chat.id, 'Привет, ' + username + '!')
-        bot.send_sticker(message.chat.id, config.new_member_sticker)
+    bot.send_message(message.chat.id, f'Привет, {username}! Представься, пожалуйста.')
+    bot.send_sticker(message.chat.id, config.new_member_sticker)
 
 
 @bot.inline_handler(func=lambda query: len(query.query.split()) > 1 and query.query.split()[0] == 'wf')

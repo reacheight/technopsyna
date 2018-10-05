@@ -1,25 +1,24 @@
 import os
-from random import choice, randint
+from random import choice, random, randint
 
 import config
 from bot import bot
 
 
-def bl_string(message):
-    random_integer = randint(1, 100)
-    if random_integer in range(1, 10):
+def bl_string_message(message):
+    probability = random()
+    if probability <= 0.1:
         bot.reply_to(message, 'ы' * randint(5, 20))
-    if random_integer in range(30, 35):
+    if probability >= 0.9:
         bot.send_message(message.chat.id, 'Прекратите!')
 
 
 def bl_command(message):
-    if message.chat.title == config.technoconfa_chatname:
-        if randint(1, 10) > 7:
-            bot.send_message(message.chat.id, 'Не флудите.')
+    if message.chat.title == config.technoconfa_chatname and random() > 0.7:
+        bot.send_message(message.chat.id, 'Не флудите.')
         return
 
-    if randint(1, 33) == 22:
+    if random() <= 0.05:
         images = os.listdir(config.bl_images_locations)
         image_filename = choice(images)
         with open(config.bl_images_locations + image_filename, 'rb') as image:
@@ -31,11 +30,11 @@ def bl_command(message):
 
     else:
         with open(config.bl_text_file, 'r', encoding='utf-8') as bl_file:
-            bl = choice(bl_file.readlines())
+            bl_string = choice(list(bl_file)).rstrip()
 
-            if str(bl).startswith('<sticker>'):
-                sticker_id = str(bl[9:]).strip()
+            if bl_string.startswith('<sticker>'):
+                sticker_id = bl_string[9:].strip()
                 bot.send_sticker(message.chat.id, sticker_id, reply_to_message_id=message.message_id)
 
             else:
-                bot.reply_to(message, str(bl).replace('<br>', '\n'))
+                bot.reply_to(message, bl_string.replace('<br>', '\n'))

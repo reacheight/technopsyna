@@ -16,5 +16,5 @@ def count_of_days_before_dmb():
 
 def dembel_command(message):
     bot.send_message(message.chat.id,
-                     "До дембеля Оленя осталось *" + str(count_of_days_before_dmb()) + "* дней!",
-                     parse_mode="Markdown")
+                     f'До дембеля Оленя осталось *{str(count_of_days_before_dmb())}* дней!',
+                     parse_mode='Markdown')
