@@ -6,7 +6,16 @@ from telebot import types
 import config
 from bot import bot
 
-wolfram_max_ratio = 2.5
+
+def crop_image(image):
+    original_img = Image.open(io.BytesIO(image))
+    cropped_img = original_img.crop((0, 95, 540, original_img.size[1] - 50))
+    io_img = io.BytesIO()
+    io_img.name = 'wolfram.png'
+    cropped_img.save(io_img, format='png')
+    io_img.seek(0)
+
+    return io_img, cropped_img.size[1] / cropped_img.size[0]
 
 
 def wolfram_parser(query):
@@ -16,28 +25,20 @@ def wolfram_parser(query):
         return 0, None, None
 
     response = requests.get(config.wolfram_url, params={'i': query})
-
     if response.status_code == 200:
-        original_img = Image.open(io.BytesIO(response.content))
-        cropped_img = original_img.crop((0, 95, 540, original_img.size[1] - 50))
-        io_img = io.BytesIO()
-        io_img.name = 'wolfram {}.png'.format(query.replace('/', '_'))
-        cropped_img.save(io_img, format='png')
-        io_img.seek(0)
-
-        return 1, io_img, cropped_img.size[1] / cropped_img.size[0]
+        return 1, crop_image(response.content)
 
     else:
         return -1, None, None
 
 
 def wolfram_command(message):
-    code, result, ratio = wolfram_parser(message.text)
+    code, (result, ratio) = wolfram_parser(message.text)
 
     if code == 1:
         bot.send_chat_action(message.chat.id, 'upload_photo')
 
-        if ratio > wolfram_max_ratio:
+        if ratio > config.wolfram_max_ratio:
             bot.send_document(message.chat.id, result, reply_to_message_id=message.message_id)
         else:
             bot.send_photo(message.chat.id, result, reply_to_message_id=message.message_id)
@@ -51,12 +52,12 @@ def wolfram_command(message):
 
 
 def wolfram_inline(query):
-    code, result, ratio = wolfram_parser(query.query)
+    code, (result, ratio) = wolfram_parser(query.query)
 
     if code != 1:
         return
 
-    if ratio > wolfram_max_ratio:
+    if ratio > config.wolfram_max_ratio:
         message = bot.send_document(config.my_id, result)
         response = types.InlineQueryResultCachedDocument(id='1', title=result.name,
                                                          document_file_id=message.document.file_id)
