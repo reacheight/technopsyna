@@ -65,9 +65,4 @@ def new_member_greeting(message):
     bot.send_sticker(message.chat.id, config.new_member_sticker)
 
 
-@bot.inline_handler(func=lambda query: len(query.query.split()) > 1 and query.query.split()[0] == 'wf')
-def inline_query(query):
-    wolfram.wolfram_inline(query)
-
-
 bot.polling(none_stop=True)

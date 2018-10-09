@@ -49,21 +49,3 @@ def wolfram_command(message):
 
     elif code == 0:
         bot.reply_to(message, 'Использование: `/wf <запрос>`', parse_mode='Markdown')
-
-
-def wolfram_inline(query):
-    code, (result, ratio) = wolfram_parser(query.query)
-
-    if code != 1:
-        return
-
-    if ratio > config.wolfram_max_ratio:
-        message = bot.send_document(config.my_id, result)
-        response = types.InlineQueryResultCachedDocument(id='1', title=result.name,
-                                                         document_file_id=message.document.file_id)
-        bot.answer_inline_query(query.id, [response])
-
-    else:
-        message = bot.send_photo(config.my_id, result)
-        response = types.InlineQueryResultCachedPhoto(id='1', photo_file_id=message.photo[-1].file_id)
-        bot.answer_inline_query(query.id, [response])
