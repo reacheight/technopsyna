@@ -1,8 +1,8 @@
 import os
 
-token = '461762429:AAF9RADuSogxiXUzGzPbiuiuZ3MRHE_EV7Q'
-my_id = '279261596'
-wolfram_appid = '7PKA2K-Y8ULYG5TAY'
+token = os.environ['BOT_TOKEN']
+my_id = int(os.environ['MY_ID'])
+wolfram_appid = os.environ['WOLFRAM_APPID']
 wolfram_url = 'https://api.wolframalpha.com/v1/simple?appid=' + wolfram_appid
 wolfram_max_ratio = 2.5
 bl_text_file = 'data/bl_data/bl_text_messages'
