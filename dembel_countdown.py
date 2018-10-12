@@ -1,7 +1,6 @@
 from datetime import date
 
 import config
-from bot import bot
 
 
 def number_of_days_before_dmb():
@@ -13,7 +12,5 @@ def number_of_days_before_dmb():
     return delta.days
 
 
-def dembel_command(message):
-    bot.send_message(message.chat.id,
-                     f'До дембеля Оленя осталось *{number_of_days_before_dmb()}* дней!',
-                     parse_mode='Markdown')
+def get_dembel_string():
+    return f'До дембеля Оленя осталось *{number_of_days_before_dmb()}* дней!'

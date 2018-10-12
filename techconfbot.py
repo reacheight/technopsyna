@@ -1,6 +1,11 @@
 from aiogram import Bot, Dispatcher, types
 from aiogram.utils import executor
+from random import random
+from datetime import datetime
 
+from wolfram import wolfram_parser
+from bl import get_bl, get_bl_string_message
+from dembel_countdown import get_dembel_string
 import config
 
 bot = Bot(config.token)
@@ -9,6 +14,7 @@ dispatcher = Dispatcher(bot)
 
 @dispatcher.message_handler(commands=list(config.text_commands.keys()))
 async def text_command(message: types.Message):
+    await log(message)
     command = message.text.split('@', 1)[0][1:]
 
     with open(config.text_commands[command], 'r') as file:
@@ -32,13 +38,80 @@ async def new_member_greeting(message: types.Message):
 
 @dispatcher.message_handler(commands=['matan'])
 async def matan_command(message: types.Message):
+    await log(message)
     if message.from_user.id == config.my_id:
         with open(config.matan_image, 'rb') as image:
             await bot.send_photo(message.chat.id, image)
 
 
+@dispatcher.message_handler(commands=['dembel'])
+async def dembel_command(message: types.Message):
+    await log(message)
+    await message.reply(get_dembel_string(), parse_mode=types.ParseMode.MARKDOWN)
+
+
+@dispatcher.message_handler(commands=['wf'])
+async def wolfram_command(message: types.Message):
+    await log(message)
+    code, (result, ratio) = wolfram_parser(message.text)
+
+    if code == 1:
+        await bot.send_chat_action(message.chat.id, types.ChatActions.UPLOAD_PHOTO)
+
+        if ratio > config.wolfram_max_ratio:
+            await message.reply_document(result)
+        else:
+            await message.reply_photo(result)
+
+    elif code == -1:
+        await message.reply_photo('Запрос не найдён.\n'
+                                  'Если ты ввёл его на русском, то попробуй ввести его на английском.')
+
+    elif code == 0:
+        await message.reply('Использование: `/wf <запрос>`', parse_mode=types.ParseMode.MARKDOWN)
+
+
+@dispatcher.message_handler(commands=['bl'])
+async def bl_command(message: types.Message):
+    await log(message)
+    if message.chat.title == config.technoconfa_chatname and random() > 0.7:
+        await bot.send_message(message.chat.id, 'Не флудите.')
+        return
+
+    bl_type, result = get_bl()
+
+    if bl_type == 'img':
+        with open(config.bl_images_locations + result, 'rb') as image:
+            if result.endswith('.gif'):
+                await message.reply_document(image)
+            else:
+                await message.reply_photo(image)
+    else:
+        if result.startswith('<sticker>'):
+            sticker_id = result[9:].strip()
+            await message.reply_sticker(sticker_id)
+
+        else:
+            await message.reply(result.replace('<br>', '\n'))
+
+
+@dispatcher.message_handler(regexp=r'.*ыыы.*')
+async def bl_string_message(message: types.Message):
+    string = get_bl_string_message()
+    if string is not None:
+        await message.reply(string)
+
+
 @dispatcher.message_handler(regexp=config.chto_pacani_pattern)
 async def chto_pacani(message: types.Message):
     await message.reply_sticker(config.cho_pacani_sticker)
+
+
+async def log(message):
+    log_text = f'{str(datetime.now())}\n' \
+               f'text: { message.text}\n'
+
+    await bot.send_message(config.logs_channel, log_text)
+
 
 executor.start_polling(dispatcher)
