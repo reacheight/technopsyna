@@ -20,11 +20,11 @@ def wolfram_parser(query):
     try:
         query = query.split(maxsplit=1)[1]
     except IndexError:
-        return 0, None, None
+        return 0, (None, None)
 
     response = requests.get(config.wolfram_url, params={'i': query})
     if response.status_code == 200:
         return 1, crop_image(response.content)
 
     else:
-        return -1, None, None
+        return -1, (None, None)
