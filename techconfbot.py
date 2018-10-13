@@ -64,8 +64,8 @@ async def wolfram_command(message: types.Message):
             await message.reply_photo(result)
 
     elif code == -1:
-        await message.reply_photo('Запрос не найдён.\n'
-                                  'Если ты ввёл его на русском, то попробуй ввести его на английском.')
+        await message.reply('Запрос не найдён.\n'
+                            'Если ты ввёл его на русском, то попробуй ввести его на английском.')
 
     elif code == 0:
         await message.reply('Использование: `/wf <запрос>`', parse_mode=types.ParseMode.MARKDOWN)
