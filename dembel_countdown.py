@@ -13,4 +13,7 @@ def number_of_days_before_dmb():
 
 
 def get_dembel_string():
+    if (number_of_days_before_dmb() <= 0):
+        return 'ДЕМБЕЛЬ 13.12.2018'
+    
     return f'До дембеля Оленя осталось *{number_of_days_before_dmb()}* дней!'
