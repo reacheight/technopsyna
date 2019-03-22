@@ -4,7 +4,7 @@ from random import random
 from datetime import datetime
 
 from wolfram import wolfram_parser
-from wolfram import WolframEmptyQueryException, ResponceCodeNo200
+from wolfram import WolframEmptyQueryException, WolframQueryNotFoundException
 from bl import get_bl, get_bl_string_message
 from dembel_countdown import get_dembel_string
 import config
@@ -71,7 +71,7 @@ async def wolfram_command(message: types.Message):
         await message.reply('Использование: `/wf <запрос>`',
                             parse_mode=types.ParseMode.MARKDOWN)
 
-    except ResponceCodeNo200:
+    except WolframQueryNotFoundException:
         await message.reply('Запрос не найдён.\n'
                             'Если ты ввёл его на русском, '
                             'то попробуй ввести его на английском.')

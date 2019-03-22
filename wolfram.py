@@ -9,7 +9,7 @@ class WolframEmptyQueryException(Exception):
     pass
 
 
-class ResponceCodeNo200(Exception):
+class WolframQueryNotFoundException(Exception):
     pass
 
 
@@ -30,5 +30,5 @@ def wolfram_parser(query):
         raise WolframEmptyQueryException
     response = requests.get(config.wolfram_url, params={'i': query})
     if response.status_code != 200:
-        raise ResponceCodeNo200
+        raise WolframQueryNotFoundException
     return crop_image(response.content)
