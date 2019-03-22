@@ -5,7 +5,7 @@ from PIL import Image
 import config
 
 
-class WrongLenWolframQueryException(Exception):
+class WolframEmptyQueryException(Exception):
     pass
 
 
@@ -27,7 +27,7 @@ def crop_image(image):
 def wolfram_parser(query):
     query = query.split(maxsplit=1)
     if len(query) != 2:
-        raise WrongLenWolframQueryException
+        raise WolframEmptyQueryException
     response = requests.get(config.wolfram_url, params={'i': query})
     if response.status_code != 200:
         raise ResponceCodeNo200

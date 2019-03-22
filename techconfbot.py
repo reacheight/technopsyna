@@ -4,7 +4,7 @@ from random import random
 from datetime import datetime
 
 from wolfram import wolfram_parser
-from wolfram import WrongLenWolframQueryException, ResponceCodeNo200
+from wolfram import WolframEmptyQueryException, ResponceCodeNo200
 from bl import get_bl, get_bl_string_message
 from dembel_countdown import get_dembel_string
 import config
@@ -67,7 +67,7 @@ async def wolfram_command(message: types.Message):
         else:
             await message.reply_photo(result)
 
-    except WrongLenWolframQueryException:
+    except WolframEmptyQueryException:
         await message.reply('Использование: `/wf <запрос>`',
                             parse_mode=types.ParseMode.MARKDOWN)
 
