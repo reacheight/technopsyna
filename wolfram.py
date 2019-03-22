@@ -5,6 +5,14 @@ from PIL import Image
 import config
 
 
+class WrongLenWolframQueryException(Exception):
+    pass
+
+
+class ResponceCodeNo200(Exception):
+    pass
+
+
 def crop_image(image):
     original_img = Image.open(io.BytesIO(image))
     cropped_img = original_img.crop((0, 95, 540, original_img.size[1] - 50))
@@ -17,14 +25,10 @@ def crop_image(image):
 
 
 def wolfram_parser(query):
-    try:
-        query = query.split(maxsplit=1)[1]
-    except IndexError:
-        return 0, (None, None)
-
+    query = query.split(maxsplit=1)
+    if len(query) != 2:
+        raise WrongLenWolframQueryException
     response = requests.get(config.wolfram_url, params={'i': query})
-    if response.status_code == 200:
-        return 1, crop_image(response.content)
-
-    else:
-        return -1, (None, None)
+    if response.status_code != 200:
+        raise ResponceCodeNo200
+    return crop_image(response.content)
