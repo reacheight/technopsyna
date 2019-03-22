@@ -28,7 +28,7 @@ def wolfram_parser(query):
     query = query.split(maxsplit=1)
     if len(query) != 2:
         raise WolframEmptyQueryException
-    response = requests.get(config.wolfram_url, params={'i': query})
+    response = requests.get(config.wolfram_url, params={'i': query[1]})
     if response.status_code != 200:
         raise WolframQueryNotFoundException
     return crop_image(response.content)
