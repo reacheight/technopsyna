@@ -4,6 +4,7 @@ from random import random
 from datetime import datetime
 
 from wolfram import wolfram_parser
+from wolfram import WolframEmptyQueryException, WolframQueryNotFoundException
 from bl import get_bl, get_bl_string_message
 from dembel_countdown import get_dembel_string
 import config
@@ -18,7 +19,8 @@ async def text_command(message: types.Message):
     command = message.text.split('@', 1)[0][1:]
 
     with open(config.text_commands[command], 'r') as file:
-        await message.reply(file.read().strip(), parse_mode=types.ParseMode.MARKDOWN,
+        await message.reply(file.read().strip(),
+                            parse_mode=types.ParseMode.MARKDOWN,
                             disable_web_page_preview=True)
 
 
@@ -32,7 +34,8 @@ async def new_member_greeting(message: types.Message):
     user = message.new_chat_members[0]
     username = '@' + user.username if user.username else user.first_name
 
-    await bot.send_message(message.chat.id, f'Привет, {username}! Представься, пожалуйста.')
+    await bot.send_message(message.chat.id,
+                           f'Привет, {username}! Представься, пожалуйста.')
     await bot.send_sticker(message.chat.id, config.new_member_sticker)
 
 
@@ -47,28 +50,31 @@ async def matan_command(message: types.Message):
 @dispatcher.message_handler(commands=['dembel'])
 async def dembel_command(message: types.Message):
     await log(message)
-    await message.reply(get_dembel_string(), parse_mode=types.ParseMode.MARKDOWN)
+    await message.reply(get_dembel_string(),
+                        parse_mode=types.ParseMode.MARKDOWN)
 
 
 @dispatcher.message_handler(commands=['wf'])
 async def wolfram_command(message: types.Message):
     await log(message)
-    code, (result, ratio) = wolfram_parser(message.text)
-
-    if code == 1:
-        await bot.send_chat_action(message.chat.id, types.ChatActions.UPLOAD_PHOTO)
+    try:
+        result, ratio = wolfram_parser(message.text)
+        await bot.send_chat_action(message.chat.id,
+                                   types.ChatActions.UPLOAD_PHOTO)
 
         if ratio > config.wolfram_max_ratio:
             await message.reply_document(result)
         else:
             await message.reply_photo(result)
 
-    elif code == -1:
-        await message.reply('Запрос не найдён.\n'
-                            'Если ты ввёл его на русском, то попробуй ввести его на английском.')
+    except WolframEmptyQueryException:
+        await message.reply('Использование: `/wf <запрос>`',
+                            parse_mode=types.ParseMode.MARKDOWN)
 
-    elif code == 0:
-        await message.reply('Использование: `/wf <запрос>`', parse_mode=types.ParseMode.MARKDOWN)
+    except WolframQueryNotFoundException:
+        await message.reply('Запрос не найдён.\n'
+                            'Если ты ввёл его на русском, '
+                            'то попробуй ввести его на английском.')
 
 
 @dispatcher.message_handler(commands=['bl'])
@@ -108,8 +114,7 @@ async def chto_pacani(message: types.Message):
 
 
 async def log(message):
-    log_text = f'{str(datetime.now())}\n' \
-               f'text: { message.text}\n'
+    log_text = f'{datetime.now()}\n text: {message.text}\n'
 
     await bot.send_message(config.logs_channel, log_text)
 

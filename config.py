@@ -1,8 +1,8 @@
-import os
+from os import environ
 
-token = os.environ['BOT_TOKEN']
-my_id = int(os.environ['MY_ID'])
-wolfram_appid = os.environ['WOLFRAM_APPID']
+token = environ['BOT_TOKEN']
+my_id = int(environ['MY_ID'])
+wolfram_appid = environ['WOLFRAM_APPID']
 wolfram_url = 'https://api.wolframalpha.com/v1/simple?appid=' + wolfram_appid
 wolfram_max_ratio = 2.5
 bl_text_file = 'data/bl_data/bl_text_messages'
@@ -22,5 +22,5 @@ text_commands = {
     'help': 'data/help_command_text',
     'wiki': 'data/wiki_command_text',
     'passing_scores': 'data/passing_scores',
-    'olymp_privileges': 'data/olymp_privileges'
+    'olymp_privileges': 'data/olymp_privileges',
 }
