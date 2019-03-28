@@ -24,24 +24,17 @@ def log(func):
     return log_wrapper
 
 
-def check(func):
-    async def check_wrapper(message: types.Message):
-        for user_id in users.check():
-            await bot.get_chat(message.chat.id).kick(user_id)
-        await func(message)
-
-    return check_wrapper
-
-
 @dispatcher.message_handler(commands=list(config.text_commands))
 @log
 async def text_command(message: types.Message):
     command = message.text.split('@', 1)[0][1:]
 
     with open(config.text_commands[command], 'r') as file:
-        await message.reply(file.read().strip(),
-                            parse_mode=types.ParseMode.MARKDOWN,
-                            disable_web_page_preview=True)
+        await message.reply(
+            file.read().strip(),
+            parse_mode=types.ParseMode.MARKDOWN,
+            disable_web_page_preview=True
+        )
 
 
 @dispatcher.message_handler(content_types=['new_chat_members'])
@@ -53,9 +46,9 @@ async def new_member_check(message: types.Message):
 
     user = message.new_chat_members[0]
     username = '@' + user.username if user.username else user.first_name
-
+    users.add(user.id)
     user_alive_button = types.InlineKeyboardButton(
-        'Я жив!',
+        'Я пидор!',
         callback_data=f'alive {username} {user.id}'
     )
     user_alive_keyboard = types.InlineKeyboardMarkup().add(user_alive_button)
@@ -96,27 +89,13 @@ async def handle_alive_callback(callback_query: types.CallbackQuery):
     )
     await bot.send_message(
         chat_id,
-        f'{username} с нами! Представься, пожалуйста ответив на это сообщение'
-        f'или используй команду бота /user_hui <твое представление>.',
-        # todo f'Иначе ты будешь автоматически удален через несколько часов',
-        reply_markup=types.ForceReply(selective=True)
+        f'{username} с нами! Представься, пожалуйста ответив на это сообщение.'
+        f' Иначе ты будешь автоматически удален через несколько часов',
+        reply_markup=types.ForceReply(selective=True),
+        parse_mode=types.ParseMode.MARKDOWN
     )
     await bot.send_sticker(chat_id, config.new_member_sticker)
     await callback_query.message.delete()
-
-
-@dispatcher.message_handler(commands=['user_hui'])
-@log
-async def user_hui(message: types.Message):
-    if len(message.text.split()) > 10:
-        users.delete(message.from_user.id)
-        await message.reply(
-            'Вы приняты'
-        )
-    else:
-        await message.reply(
-            'Ваше сообщение слишком маленькое, исправьтесь'
-        )
 
 
 @dispatcher.message_handler(commands=['matan'])
@@ -130,8 +109,10 @@ async def matan_command(message: types.Message):
 @dispatcher.message_handler(commands=['dembel'])
 @log
 async def dembel_command(message: types.Message):
-    await message.reply(get_dembel_string(),
-                        parse_mode=types.ParseMode.MARKDOWN)
+    await message.reply(
+        get_dembel_string(),
+        parse_mode=types.ParseMode.MARKDOWN
+    )
 
 
 @dispatcher.message_handler(commands=['wf'])
@@ -163,7 +144,6 @@ async def wolfram_command(message: types.Message):
 
 
 @dispatcher.message_handler(commands=['bl'])
-@check
 @log
 async def bl_command(message: types.Message):
     if message.chat.title == config.technoconfa_chatname and random() > 0.7:
@@ -196,6 +176,24 @@ async def bl_string_message(message: types.Message):
 @log
 async def chto_pacani(message: types.Message):
     await message.reply_sticker(config.cho_pacani_sticker)
+
+
+async def user_hui(message: types.Message):
+    if len(message.text.split()) >= config.length_start_msg:
+        users.delete(message.from_user.id)
+        await message.reply('Вы приняты')
+    else:
+        await message.reply('Ваше сообщение слишком маленькое, исправьтесь')
+
+
+@dispatcher.message_handler(regexp=r'.*', )
+async def vahter(message: types.Message):
+    if message.from_user in users.table:
+        await user_hui(message)
+    if not users.is_check():
+        return
+    for user_id in users.check():
+        await (await bot.get_chat(message.chat.id)).kick(user_id)
 
 
 executor.start_polling(dispatcher)
