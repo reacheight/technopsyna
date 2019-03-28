@@ -14,12 +14,12 @@ dispatcher = Dispatcher(bot)
 
 
 def log(func):
-    async def wrapper(message: types.Message):
+    async def log_wrapper(message: types.Message):
         log_text = f'{datetime.now()}\n text: {message.text}\n'
         await bot.send_message(config.logs_channel, log_text)
-        func(message)
+        await func(message)
 
-    return wrapper
+    return log_wrapper
 
 
 @dispatcher.message_handler(commands=list(config.text_commands))
