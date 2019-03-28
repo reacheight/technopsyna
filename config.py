@@ -17,8 +17,8 @@ technoconfa_chatname = 'Техноконфа_2019'
 bot_username = '@technoconfachbot'
 logs_channel = '@technocofachbot_logs'
 length_start_msg = 10
-update_delete_user_time = timedelta(seconds=20)
-user_delete_time = timedelta(seconds=20)
+update_delete_user_time = timedelta(seconds=3600)
+user_delete_time = timedelta(days=1)
 
 text_commands = {
     'about': 'data/about_command_text',

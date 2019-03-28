@@ -188,7 +188,7 @@ async def user_hui(message: types.Message):
 
 @dispatcher.message_handler(regexp=r'.*', )
 async def vahter(message: types.Message):
-    if message.from_user in users.table:
+    if message.from_user.id in users.table:
         await user_hui(message)
     if not users.is_check():
         return
