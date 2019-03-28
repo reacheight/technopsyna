@@ -141,13 +141,11 @@ async def bl_command(message: types.Message):
                 await message.reply_document(image)
             else:
                 await message.reply_photo(image)
+    elif result.startswith('<sticker>'):
+        sticker_id = result[9:].strip()
+        await message.reply_sticker(sticker_id)
     else:
-        if result.startswith('<sticker>'):
-            sticker_id = result[9:].strip()
-            await message.reply_sticker(sticker_id)
-
-        else:
-            await message.reply(result.replace('<br>', '\n'))
+        await message.reply(result.replace('<br>', '\n'))
 
 
 @dispatcher.message_handler(regexp=r'.*ыыы.*')
