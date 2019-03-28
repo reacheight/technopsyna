@@ -34,9 +34,34 @@ async def new_member_greeting(message: types.Message):
     user = message.new_chat_members[0]
     username = '@' + user.username if user.username else user.first_name
 
+    user_alive_button = types.InlineKeyboardButton('Я жив!', callback_data=f'alive {username} {user.id}')
+    user_alive_keyboard = types.InlineKeyboardMarkup().add(user_alive_button)
+
+    await bot.restrict_chat_member(message.chat.id, user.id,
+                                   can_send_messages=False, can_add_web_page_previews=False,
+                                   can_send_media_messages=False, can_send_other_messages=False)
+
     await bot.send_message(message.chat.id,
-                           f'Привет, {username}! Представься, пожалуйста.')
-    await bot.send_sticker(message.chat.id, config.new_member_sticker)
+                           f'Привет, {username}! Ты с нами?',
+                           reply_markup=user_alive_keyboard)
+
+
+@dispatcher.callback_query_handler(func=lambda callback: callback.data.startswith('alive'))
+async def process_callback_button1(callback_query: types.CallbackQuery):
+    await bot.answer_callback_query(callback_query.id)
+
+    user_id = int(callback_query.data.split()[2])
+    username = callback_query.data.split()[1]
+    chat_id = int(callback_query.chat_instance)
+
+    if user_id != callback_query.from_user.id:
+        return
+
+    await bot.restrict_chat_member(chat_id, user_id,
+                                   can_send_messages=True, can_add_web_page_previews=True,
+                                   can_send_media_messages=True, can_send_other_messages=True)
+    await bot.send_message(chat_id, f'{username} с нами!')
+    await bot.send_sticker(chat_id, config.new_member_sticker)
 
 
 @dispatcher.message_handler(commands=['matan'])
