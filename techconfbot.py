@@ -25,7 +25,7 @@ async def text_command(message: types.Message):
 
 
 @dispatcher.message_handler(content_types=['new_chat_members'])
-async def new_member_greeting(message: types.Message):
+async def new_member_check(message: types.Message):
     chat_name = message.chat.title
 
     if chat_name != config.technoconfa_chatname:
@@ -47,12 +47,12 @@ async def new_member_greeting(message: types.Message):
 
 
 @dispatcher.callback_query_handler(func=lambda callback: callback.data.startswith('alive'))
-async def process_callback_button1(callback_query: types.CallbackQuery):
+async def handle_alive_callback(callback_query: types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
 
     user_id = int(callback_query.data.split()[2])
     username = callback_query.data.split()[1]
-    chat_id = int(callback_query.chat_instance)
+    chat_id = callback_query.message.chat.id
 
     if user_id != callback_query.from_user.id:
         return
@@ -60,11 +60,10 @@ async def process_callback_button1(callback_query: types.CallbackQuery):
     await bot.restrict_chat_member(chat_id, user_id,
                                    can_send_messages=True, can_add_web_page_previews=True,
                                    can_send_media_messages=True, can_send_other_messages=True)
-
     await bot.send_message(chat_id, f'{username} с нами! Представься, пожалуйста.',
                            reply_markup=types.ForceReply(selective=True))
-
     await bot.send_sticker(chat_id, config.new_member_sticker)
+    await callback_query.message.delete()
 
 
 @dispatcher.message_handler(commands=['matan'])
