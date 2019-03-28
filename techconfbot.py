@@ -27,7 +27,7 @@ def log(func):
 def check(func):
     async def check_wrapper(message: types.Message):
         for user_id in users.check():
-            await bot.get_chat(message.chat.id).kick(message.from_user.id)
+            await bot.get_chat(message.chat.id).kick(user_id)
         await func(message)
 
     return check_wrapper
@@ -97,8 +97,8 @@ async def handle_alive_callback(callback_query: types.CallbackQuery):
     await bot.send_message(
         chat_id,
         f'{username} с нами! Представься, пожалуйста ответив на это сообщение'
-        f'или используй команду бота /user_hui <твое представление>.'
-        f'Иначе ты будешь автоматически удален через несколько часов',
+        f'или используй команду бота /user_hui <твое представление>.',
+        # todo f'Иначе ты будешь автоматически удален через несколько часов',
         reply_markup=types.ForceReply(selective=True)
     )
     await bot.send_sticker(chat_id, config.new_member_sticker)
