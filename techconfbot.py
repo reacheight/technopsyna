@@ -79,9 +79,7 @@ async def handle_alive_callback(callback_query: types.CallbackQuery):
     )
     await bot.send_message(
         chat_id,
-        f'{username} с нами! Представься, пожалуйста ответив на это сообщение'
-        f'или используй команду бота /user_hui <твое представление>.'
-        f'Иначе ты будешь автоматически удален через несколько часов',
+        f'{username} с нами! Представься, пожалуйста ответив на это сообщение',
         reply_markup=types.ForceReply(selective=True)
     )
     await bot.send_sticker(chat_id, config.new_member_sticker)
@@ -108,8 +106,10 @@ async def dembel_command(message: types.Message):
 async def wolfram_command(message: types.Message):
     try:
         result, ratio = wolfram_parser(message.text)
-        await bot.send_chat_action(message.chat.id,
-                                   types.ChatActions.UPLOAD_PHOTO)
+        await bot.send_chat_action(
+            message.chat.id,
+            types.ChatActions.UPLOAD_PHOTO
+        )
 
         if ratio > config.wolfram_max_ratio:
             await message.reply_document(result)
@@ -117,13 +117,17 @@ async def wolfram_command(message: types.Message):
             await message.reply_photo(result)
 
     except WolframEmptyQueryException:
-        await message.reply('Использование: `/wf <запрос>`',
-                            parse_mode=types.ParseMode.MARKDOWN)
+        await message.reply(
+            'Использование: `/wf <запрос>`',
+            parse_mode=types.ParseMode.MARKDOWN
+        )
 
     except WolframQueryNotFoundException:
-        await message.reply('Запрос не найдён.\n'
-                            'Если ты ввёл его на русском, '
-                            'то попробуй ввести его на английском.')
+        await message.reply(
+            'Запрос не найдён.\n'
+            'Если ты ввёл его на русском, '
+            'то попробуй ввести его на английском.'
+        )
 
 
 @dispatcher.message_handler(commands=['bl'])
