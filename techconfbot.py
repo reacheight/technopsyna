@@ -38,7 +38,7 @@ async def text_command(message: types.Message):
 
 
 @dispatcher.message_handler(content_types=['new_chat_members'])
-async def new_member_check(message: types.Message):
+async def mute_new_member(message: types.Message):
     chat_name = message.chat.title
 
     if chat_name != config.technoconfa_chatname:
