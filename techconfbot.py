@@ -183,7 +183,7 @@ async def new_member_checker(message: types.Message):
     if message.from_user.id in users.table:
         users.delete(message.from_user.id)
         await message.reply('Вы приняты.')
-    if not users.is_check():
+    if not users.is_check_time():
         return
     for user_id in users.check():
         await (await bot.get_chat(message.chat.id)).kick(user_id)

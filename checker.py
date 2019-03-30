@@ -14,7 +14,7 @@ class UserHeap:
         if user_id in self.table:
             del self.table[user_id]
 
-    def is_check(self) -> bool:
+    def is_check_time(self) -> bool:
         return datetime.now() - self.last_check >= update_delete_user_time
 
     def check(self) -> list:
