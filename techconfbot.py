@@ -48,7 +48,7 @@ async def new_member_check(message: types.Message):
     username = '@' + user.username if user.username else user.first_name
     users.add(user.id)
     user_alive_button = types.InlineKeyboardButton(
-        'Я пидор!',
+        'Я жив!',
         callback_data=f'alive {username} {user.id}'
     )
     user_alive_keyboard = types.InlineKeyboardMarkup().add(user_alive_button)
@@ -89,8 +89,8 @@ async def handle_alive_callback(callback_query: types.CallbackQuery):
     )
     await bot.send_message(
         chat_id,
-        f'{username} с нами! Представься, пожалуйста ответив на это сообщение.'
-        f' Иначе ты будешь автоматически удален через несколько часов',
+        f'{username} с нами! Представься, пожалуйста, ответив на это сообщение.'
+        f' Иначе ты будешь автоматически удален через несколько часов.',
         reply_markup=types.ForceReply(selective=True),
         parse_mode=types.ParseMode.MARKDOWN
     )
