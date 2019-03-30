@@ -89,8 +89,8 @@ async def handle_alive_callback(callback_query: types.CallbackQuery):
     )
     await bot.send_message(
         chat_id,
-        f'{username} с нами! Представься, пожалуйста, ответив на это сообщение.'
-        f' Иначе ты будешь автоматически удален через несколько часов.',
+        f'{username} с нами! Представься, пожалуйста, '
+        f'или ты будешь автоматически удален через несколько часов.',
         reply_markup=types.ForceReply(selective=True),
         parse_mode=types.ParseMode.MARKDOWN
     )
@@ -178,18 +178,11 @@ async def chto_pacani(message: types.Message):
     await message.reply_sticker(config.cho_pacani_sticker)
 
 
-async def user_hui(message: types.Message):
-    if len(message.text.split()) >= config.length_start_msg:
-        users.delete(message.from_user.id)
-        await message.reply('Вы приняты')
-    else:
-        await message.reply('Ваше сообщение слишком маленькое, исправьтесь')
-
-
 @dispatcher.message_handler(regexp=r'.*', )
-async def vahter(message: types.Message):
+async def new_member_checker(message: types.Message):
     if message.from_user.id in users.table:
-        await user_hui(message)
+        users.delete(message.from_user.id)
+        await message.reply('Вы приняты.')
     if not users.is_check():
         return
     for user_id in users.check():
