@@ -80,8 +80,6 @@ async def handle_alive_callback(callback_query: types.CallbackQuery):
     if user_id != callback_query.from_user.id:
         return
 
-    users.add(user_id)
-
     await bot.restrict_chat_member(
         chat_id, user_id,
         can_send_messages=True, can_add_web_page_previews=True,
