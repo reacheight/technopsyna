@@ -1,13 +1,18 @@
+from datetime import datetime
+from functools import wraps
+from random import random
+
 from aiogram import Bot, Dispatcher, types
 from aiogram.utils import executor
-from random import random
-from datetime import datetime
 
-from wolfram import wolfram_parser
-from wolfram import WolframEmptyQueryException, WolframQueryNotFoundException
+import config
 from bl import get_bl, get_bl_string_message
 from dembel_countdown import get_dembel_string
-import config
+from wolfram import (
+    wolfram_parser,
+    WolframEmptyQueryException,
+    WolframQueryNotFoundException
+)
 
 bot = Bot(config.token)
 dispatcher = Dispatcher(bot)
