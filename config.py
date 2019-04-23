@@ -1,4 +1,5 @@
 from os import environ
+from datetime import timedelta
 
 token = environ['BOT_TOKEN']
 my_id = int(environ['MY_ID'])
@@ -15,6 +16,8 @@ deer_dembel_date = {'year': 2018, 'month': 12, 'day': 13}
 technoconfa_chatname = 'Техноконфа_2019'
 bot_username = '@technoconfachbot'
 logs_channel = '@technocofachbot_logs'
+update_delete_user_time = timedelta(seconds=3600)
+user_delete_time = timedelta(days=1)
 
 text_commands = {
     'about': 'data/about_command_text',
