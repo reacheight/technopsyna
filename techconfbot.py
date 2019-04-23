@@ -7,13 +7,13 @@ from aiogram.utils import executor
 
 import config
 from bl import get_bl, get_bl_string_message
+from checker import UserHeap
 from dembel_countdown import get_dembel_string
 from wolfram import (
     wolfram_parser,
     WolframEmptyQueryException,
     WolframQueryNotFoundException
 )
-from checker import UserHeap
 
 bot = Bot(config.token)
 dispatcher = Dispatcher(bot)
@@ -90,7 +90,7 @@ async def handle_alive_callback(callback_query: types.CallbackQuery):
     await bot.send_message(
         chat_id,
         f'{username} с нами! Представься, пожалуйста, '
-        f'или ты будешь автоматически удален через несколько часов.',
+        'или ты будешь автоматически удален через несколько часов.',
         reply_markup=types.ForceReply(selective=True)
     )
     await bot.send_sticker(chat_id, config.new_member_sticker)
@@ -108,8 +108,9 @@ async def matan_command(message: types.Message):
 @dispatcher.message_handler(commands=['dembel'])
 @log
 async def dembel_command(message: types.Message):
-    await message.reply(get_dembel_string(),
-                        parse_mode=types.ParseMode.MARKDOWN)
+    answer = get_dembel_string()
+    if answer:
+        await message.reply(answer, parse_mode=types.ParseMode.MARKDOWN)
 
 
 @dispatcher.message_handler(commands=['wf'])
@@ -182,6 +183,7 @@ async def new_member_checker(message: types.Message):
     if message.from_user.id in users.table:
         users.delete(message.from_user.id)
         await message.reply('Вы приняты.')
+
     if not users.is_check_time():
         return
     for user_id in users.check():
