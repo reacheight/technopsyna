@@ -20,9 +20,11 @@ class UserHeap:
     def check(self) -> list:
         deletes = []
         for user_id, time in list(self.table.items()):
+            # we make copy,
+            # because we delete keys from this dict where iter for this dict
             if datetime.now() - time >= user_delete_time:
                 deletes.append(user_id)
-                del self.table[user_id]
+                self.table.pop(user_id, None)
 
         self.last_check = datetime.now()
         return deletes
