@@ -1,23 +1,29 @@
+from datetime import datetime
+from functools import wraps
+from random import random
+
 from aiogram import Bot, Dispatcher, types
 from aiogram.utils import executor
-from random import random
-from datetime import datetime
 
-from wolfram import wolfram_parser
-from wolfram import WolframEmptyQueryException, WolframQueryNotFoundException
+import config
 from bl import get_bl, get_bl_string_message
 from dembel_countdown import get_dembel_string
-import config
+from wolfram import (
+    wolfram_parser,
+    WolframEmptyQueryException,
+    WolframQueryNotFoundException
+)
 
 bot = Bot(config.token)
 dispatcher = Dispatcher(bot)
 
 
 def log(func):
-    async def log_wrapper(message: types.Message):
+    @wraps(func)
+    async def log_wrapper(message: types.Message, *args, **kwargs):
         log_text = f'{datetime.now()}\n text: {message.text}\n'
         await bot.send_message(config.logs_channel, log_text)
-        await func(message)
+        await func(message, *args, **kwargs)
 
     return log_wrapper
 
@@ -145,13 +151,11 @@ async def bl_command(message: types.Message):
                 await message.reply_document(image)
             else:
                 await message.reply_photo(image)
+    elif result.startswith('<sticker>'):
+        sticker_id = result[9:].strip()
+        await message.reply_sticker(sticker_id)
     else:
-        if result.startswith('<sticker>'):
-            sticker_id = result[9:].strip()
-            await message.reply_sticker(sticker_id)
-
-        else:
-            await message.reply(result.replace('<br>', '\n'))
+        await message.reply(result.replace('<br>', '\n'))
 
 
 @dispatcher.message_handler(regexp=r'.*ыыы.*')
