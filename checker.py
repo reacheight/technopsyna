@@ -11,8 +11,7 @@ class UserHeap:
         self.table[user_id] = datetime.now()
 
     def delete(self, user_id: int) -> None:
-        if user_id in self.table:
-            del self.table[user_id]
+        self.table.pop(user_id, None)
 
     def is_check_time(self) -> bool:
         return datetime.now() - self.last_check >= update_delete_user_time
