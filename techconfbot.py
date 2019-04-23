@@ -1,13 +1,18 @@
+from datetime import datetime
+from functools import wraps
+from random import random
+
 from aiogram import Bot, Dispatcher, types
 from aiogram.utils import executor
-from random import random
-from datetime import datetime
 
-from wolfram import wolfram_parser
-from wolfram import WolframEmptyQueryException, WolframQueryNotFoundException
+import config
 from bl import get_bl, get_bl_string_message
 from dembel_countdown import get_dembel_string
-import config
+from wolfram import (
+    wolfram_parser,
+    WolframEmptyQueryException,
+    WolframQueryNotFoundException
+)
 from checker import UserHeap
 
 bot = Bot(config.token)
@@ -16,10 +21,11 @@ users = UserHeap()
 
 
 def log(func):
-    async def log_wrapper(message: types.Message):
+    @wraps(func)
+    async def log_wrapper(message: types.Message, *args, **kwargs):
         log_text = f'{datetime.now()}\n text: {message.text}\n'
         await bot.send_message(config.logs_channel, log_text)
-        await func(message)
+        await func(message, *args, **kwargs)
 
     return log_wrapper
 
@@ -30,15 +36,13 @@ async def text_command(message: types.Message):
     command = message.text.split('@', 1)[0][1:]
 
     with open(config.text_commands[command], 'r') as file:
-        await message.reply(
-            file.read().strip(),
-            parse_mode=types.ParseMode.MARKDOWN,
-            disable_web_page_preview=True
-        )
+        await message.reply(file.read().strip(),
+                            parse_mode=types.ParseMode.MARKDOWN,
+                            disable_web_page_preview=True)
 
 
 @dispatcher.message_handler(content_types=['new_chat_members'])
-async def mute_new_member(message: types.Message):
+async def new_member_check(message: types.Message):
     chat_name = message.chat.title
 
     if chat_name != config.technoconfa_chatname:
@@ -53,19 +57,15 @@ async def mute_new_member(message: types.Message):
     )
     user_alive_keyboard = types.InlineKeyboardMarkup().add(user_alive_button)
 
-    await bot.restrict_chat_member(
-        message.chat.id, user.id,
-        can_send_messages=False,
-        can_add_web_page_previews=False,
-        can_send_media_messages=False,
-        can_send_other_messages=False
-    )
+    await bot.restrict_chat_member(message.chat.id, user.id,
+                                   can_send_messages=False,
+                                   can_add_web_page_previews=False,
+                                   can_send_media_messages=False,
+                                   can_send_other_messages=False)
 
-    await bot.send_message(
-        message.chat.id,
-        f'Привет, {username}! Ты с нами?',
-        reply_markup=user_alive_keyboard
-    )
+    await bot.send_message(message.chat.id,
+                           f'Привет, {username}! Ты с нами?',
+                           reply_markup=user_alive_keyboard)
 
 
 @dispatcher.callback_query_handler(
@@ -107,10 +107,8 @@ async def matan_command(message: types.Message):
 @dispatcher.message_handler(commands=['dembel'])
 @log
 async def dembel_command(message: types.Message):
-    await message.reply(
-        get_dembel_string(),
-        parse_mode=types.ParseMode.MARKDOWN
-    )
+    await message.reply(get_dembel_string(),
+                        parse_mode=types.ParseMode.MARKDOWN)
 
 
 @dispatcher.message_handler(commands=['wf'])
@@ -119,7 +117,8 @@ async def wolfram_command(message: types.Message):
     try:
         result, ratio = wolfram_parser(message.text)
         await bot.send_chat_action(
-            message.chat.id, types.ChatActions.UPLOAD_PHOTO
+            message.chat.id,
+            types.ChatActions.UPLOAD_PHOTO
         )
 
         if ratio > config.wolfram_max_ratio:

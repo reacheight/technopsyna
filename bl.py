@@ -1,5 +1,5 @@
 import os
-from random import choice, random, randint
+from random import choice, randint, random
 
 import config
 
