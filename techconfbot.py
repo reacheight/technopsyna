@@ -89,8 +89,7 @@ async def handle_alive_callback(callback_query: types.CallbackQuery):
         chat_id,
         f'{username} с нами! Представься, пожалуйста, '
         f'или ты будешь автоматически удален через несколько часов.',
-        reply_markup=types.ForceReply(selective=True),
-        parse_mode=types.ParseMode.MARKDOWN
+        reply_markup=types.ForceReply(selective=True)
     )
     await bot.send_sticker(chat_id, config.new_member_sticker)
     await callback_query.message.delete()
@@ -177,6 +176,9 @@ async def chto_pacani(message: types.Message):
 
 @dispatcher.message_handler(regexp=r'.*', )
 async def new_member_checker(message: types.Message):
+    if message.chat.title != config.technoconfa_chatname:
+        return
+
     if message.from_user.id in users.table:
         users.delete(message.from_user.id)
         await message.reply('Вы приняты.')
