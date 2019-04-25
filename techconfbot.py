@@ -7,13 +7,13 @@ from aiogram.utils import executor
 
 import config
 from bl import get_bl, get_bl_string_message
+from checker import UserHeap
 from dembel_countdown import get_dembel_string
 from wolfram import (
     wolfram_parser,
     WolframEmptyQueryException,
     WolframQueryNotFoundException
 )
-from checker import UserHeap
 
 bot = Bot(config.token)
 dispatcher = Dispatcher(bot)
@@ -36,9 +36,10 @@ async def text_command(message: types.Message):
     command = message.text.split('@', 1)[0][1:]
 
     with open(config.text_commands[command], 'r') as file:
-        await message.reply(file.read().strip(),
-                            parse_mode=types.ParseMode.MARKDOWN,
-                            disable_web_page_preview=True)
+        await message.reply(
+            file.read().strip(),
+            parse_mode=types.ParseMode.MARKDOWN, disable_web_page_preview=True
+        )
 
 
 @dispatcher.message_handler(content_types=['new_chat_members'])
@@ -57,15 +58,16 @@ async def new_member_check(message: types.Message):
     )
     user_alive_keyboard = types.InlineKeyboardMarkup().add(user_alive_button)
 
-    await bot.restrict_chat_member(message.chat.id, user.id,
-                                   can_send_messages=False,
-                                   can_add_web_page_previews=False,
-                                   can_send_media_messages=False,
-                                   can_send_other_messages=False)
+    await bot.restrict_chat_member(
+        message.chat.id, user.id,
+        can_send_messages=False, can_add_web_page_previews=False,
+        can_send_media_messages=False, can_send_other_messages=False
+    )
 
-    await bot.send_message(message.chat.id,
-                           f'Привет, {username}! Ты с нами?',
-                           reply_markup=user_alive_keyboard)
+    await bot.send_message(
+        message.chat.id, f'Привет, {username}! Ты с нами?',
+        reply_markup=user_alive_keyboard
+    )
 
 
 @dispatcher.callback_query_handler(
@@ -88,7 +90,7 @@ async def handle_alive_callback(callback_query: types.CallbackQuery):
     await bot.send_message(
         chat_id,
         f'{username} с нами! Представься, пожалуйста, '
-        f'или ты будешь автоматически удален через несколько часов.',
+        'или ты будешь автоматически удален через несколько часов.',
         reply_markup=types.ForceReply(selective=True)
     )
     await bot.send_sticker(chat_id, config.new_member_sticker)
@@ -163,9 +165,9 @@ async def bl_command(message: types.Message):
 
 @dispatcher.message_handler(regexp=r'.*ыыы.*')
 async def bl_string_message(message: types.Message):
-    string = get_bl_string_message()
-    if string is not None:
-        await message.reply(string)
+    answer = get_bl_string_message()
+    if answer:
+        await message.reply(answer)
 
 
 @dispatcher.message_handler(regexp=config.chto_pacani_pattern)
@@ -174,7 +176,7 @@ async def chto_pacani(message: types.Message):
     await message.reply_sticker(config.cho_pacani_sticker)
 
 
-@dispatcher.message_handler(regexp=r'.*', )
+@dispatcher.message_handler(regexp=r'.*')
 async def new_member_checker(message: types.Message):
     if message.chat.title != config.technoconfa_chatname:
         return
@@ -182,10 +184,12 @@ async def new_member_checker(message: types.Message):
     if message.from_user.id in users.table:
         users.delete(message.from_user.id)
         await message.reply('Вы приняты.')
+
     if not users.is_check_time():
         return
     for user_id in users.check():
         await (await bot.get_chat(message.chat.id)).kick(user_id)
 
 
-executor.start_polling(dispatcher)
+if __name__ == '__main__':
+    executor.start_polling(dispatcher)

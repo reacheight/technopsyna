@@ -8,7 +8,7 @@ def get_bl_string_message():
     probability = random()
     if probability <= 0.1:
         return 'ы' * randint(5, 20)
-    if probability >= 0.9:
+    elif probability >= 0.9:
         return 'Прекратите!'
 
 

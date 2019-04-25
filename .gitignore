@@ -104,5 +104,4 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-
-Будет удалено .idea/
+/.idea
