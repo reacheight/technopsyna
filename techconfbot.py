@@ -108,9 +108,8 @@ async def matan_command(message: types.Message):
 @dispatcher.message_handler(commands=['dembel'])
 @log
 async def dembel_command(message: types.Message):
-    answer = get_dembel_string()
-    if answer:
-        await message.reply(answer, parse_mode=types.ParseMode.MARKDOWN)
+    await message.reply(get_dembel_string(),
+                        parse_mode=types.ParseMode.MARKDOWN)
 
 
 @dispatcher.message_handler(commands=['wf'])
@@ -166,7 +165,9 @@ async def bl_command(message: types.Message):
 
 @dispatcher.message_handler(regexp=r'.*ыыы.*')
 async def bl_string_message(message: types.Message):
-    await message.reply(get_bl_string_message())
+    answer = get_bl_string_message()
+    if answer:
+        await message.reply(answer)
 
 
 @dispatcher.message_handler(regexp=config.chto_pacani_pattern)
