@@ -70,8 +70,7 @@ async def new_member_check(message: types.Message):
     )
 
 
-@dispatcher.callback_query_handler(
-    func=lambda callback: callback.data.startswith('alive'))
+@dispatcher.callback_query_handler(lambda callback: callback.data.startswith('alive'))
 async def handle_alive_callback(callback_query: types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
 
