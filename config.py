@@ -2,6 +2,7 @@ from os import environ
 from datetime import timedelta
 
 token = environ['BOT_TOKEN']
+test_token = environ['TEST_BOT_TOKEN']
 my_id = int(environ['MY_ID'])
 wolfram_appid = environ['WOLFRAM_APPID']
 wolfram_url = 'https://api.wolframalpha.com/v1/simple?appid=' + wolfram_appid
