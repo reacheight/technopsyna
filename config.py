@@ -13,7 +13,7 @@ new_member_sticker = 'CAADAgADrQEAAm29TQUoveU--qPBlAI'
 cho_pacani_sticker = 'CAADAgADJwADtIuIDaIy4m-uZXREAg'
 chto_pacani_pattern = r'(?iu).*чт?[оеё],? п[ао][цс][ао]ны'
 deer_dembel_date = {'year': 2018, 'month': 12, 'day': 13}
-technoconfa_chatname = 'Техноконфа_2019'
+technoconfa_chatname = 'Техноконфа_2020'
 bot_username = '@technoconfachbot'
 logs_channel = '@technocofachbot_logs'
 update_delete_user_time = timedelta(seconds=3600)
