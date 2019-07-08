@@ -26,4 +26,5 @@ text_commands = {
     'wiki': 'data/wiki_command_text',
     'passing_scores': 'data/passing_scores',
     'olymp_privileges': 'data/olymp_privileges',
+    'helpline': 'data/helpline'
 }
