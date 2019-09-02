@@ -6,6 +6,7 @@ from aiogram import Bot, Dispatcher, types
 from aiogram.utils import executor
 
 import config
+import utils
 from bl import get_bl, get_bl_string_message
 from checker import UserHeap
 from dembel_countdown import get_dembel_string
@@ -45,10 +46,10 @@ async def text_command(message: types.Message):
 @dispatcher.message_handler(commands=list(config.ege_countdown_commands))
 @log
 async def ege_countdown_command(message: types.Message):
-    command = message.text.replace(config.bot_username, '')[1:]
+    command = utils.get_relative_command(message.get_command())
     date_string, subject_name = config.ege_countdown_commands[command]
-    delta = datetime.fromisoformat(date_string) - datetime.now()
-    await message.reply(f'До егэ по *{subject_name}* осталось {delta.days} дней.',
+    days_left = utils.get_days_until(datetime.fromisoformat(date_string))
+    await message.reply(f'До егэ по *{subject_name}* осталось {days_left} дней.',
                         parse_mode=types.ParseMode.MARKDOWN)
 
 
