@@ -42,6 +42,16 @@ async def text_command(message: types.Message):
         )
 
 
+@dispatcher.message_handler(commands=list(config.ege_countdown_commands))
+@log
+async def ege_countdown_command(message: types.Message):
+    command = message.text.replace(config.bot_username, '')[1:]
+    date_string, subject_name = config.ege_countdown_commands[command]
+    delta = datetime.fromisoformat(date_string) - datetime.now()
+    await message.reply(f'До егэ по *{subject_name}* осталось {delta.days} дней.',
+                        parse_mode=types.ParseMode.MARKDOWN)
+
+
 @dispatcher.message_handler(content_types=['new_chat_members'])
 async def new_member_check(message: types.Message):
     chat_name = message.chat.title
