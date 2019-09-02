@@ -9,7 +9,6 @@ import config
 import utils
 from bl import get_bl, get_bl_string_message
 from checker import UserHeap
-from dembel_countdown import get_dembel_string
 from wolfram import (
     wolfram_parser,
     WolframEmptyQueryException,
@@ -118,7 +117,7 @@ async def matan_command(message: types.Message):
 @dispatcher.message_handler(commands=['dembel'])
 @log
 async def dembel_command(message: types.Message):
-    await message.reply(get_dembel_string(),
+    await message.reply(config.dembel_message,
                         parse_mode=types.ParseMode.MARKDOWN)
 
 
