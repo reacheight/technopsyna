@@ -145,8 +145,8 @@ async def wolfram_command(message: types.Message):
     except WolframQueryNotFoundException:
         await message.reply(
             'Запрос не найдён.\n'
-            'Если ты ввёл его на русском, '
-            'то попробуй ввести его на английском.'
+            'Если вы ввели его на русском, '
+            'то попробуйте ввести его на английском.'
         )
 
 
