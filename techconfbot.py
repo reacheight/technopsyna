@@ -7,6 +7,7 @@ from aiogram.utils import executor
 
 import config
 import utils
+import larin
 from bl import get_bl, get_bl_string_message
 from checker import UserHeap
 from wolfram import (
@@ -50,6 +51,12 @@ async def ege_countdown_command(message: types.Message):
     days_left = utils.get_days_until(datetime.fromisoformat(date_string))
     await message.reply(f'До егэ по *{subject_name}* осталось {days_left} дней.',
                         parse_mode=types.ParseMode.MARKDOWN)
+
+
+@dispatcher.message_handler(commands=['larin'])
+@log
+async def larin_command(message: types.Message):
+    await message.reply(f'Последний вариант Ларина: {larin.get_latest_var_url()}')
 
 
 @dispatcher.message_handler(content_types=['new_chat_members'])
@@ -189,6 +196,11 @@ async def chto_pacani(message: types.Message):
 async def new_member_checker(message: types.Message):
     if message.chat.title != config.technoconfa_chatname:
         return
+
+    if larin.is_check_time():
+        next_var = larin.get_next_var_url()
+        if next_var:
+            await bot.send_message(message.chat.id, f'Вышел новый вариант Ларина: {next_var}')
 
     if message.from_user.id in users.table:
         users.delete(message.from_user.id)
