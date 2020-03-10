@@ -56,7 +56,7 @@ async def ege_countdown_command(message: types.Message):
 @dispatcher.message_handler(commands=['larin'])
 @log
 async def larin_command(message: types.Message):
-    await message.reply(get_latest_var_url())
+    await message.reply(f'Последний вариант Ларина: {get_latest_var_url()}')
 
 
 @dispatcher.message_handler(content_types=['new_chat_members'])
