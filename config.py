@@ -1,6 +1,7 @@
 from os import environ
 from datetime import timedelta
 
+redis_url = environ['REDIS_URL']
 token = environ['BOT_TOKEN']
 my_id = int(environ['MY_ID'])
 wolfram_appid = environ['WOLFRAM_APPID']
@@ -37,3 +38,6 @@ ege_countdown_commands = {
     'inf': ('2020-05-25', 'информатике'),
     'phys': ('2020-06-04', 'физике')
 }
+
+larin_var_key = "latest_larin_var"
+larin_variant_pdf_template = "https://alexlarin.net/ege/2020/trvar{}.pdf"

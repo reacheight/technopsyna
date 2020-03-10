@@ -7,6 +7,7 @@ from aiogram.utils import executor
 
 import config
 import utils
+from larin import get_latest_var_url
 from bl import get_bl, get_bl_string_message
 from checker import UserHeap
 from wolfram import (
@@ -50,6 +51,12 @@ async def ege_countdown_command(message: types.Message):
     days_left = utils.get_days_until(datetime.fromisoformat(date_string))
     await message.reply(f'До егэ по *{subject_name}* осталось {days_left} дней.',
                         parse_mode=types.ParseMode.MARKDOWN)
+
+
+@dispatcher.message_handler(commands=['larin'])
+@log
+async def larin_command(message: types.Message):
+    await message.reply(get_latest_var_url())
 
 
 @dispatcher.message_handler(content_types=['new_chat_members'])
