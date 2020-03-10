@@ -1,2 +1,5 @@
 data:
   - data/**/*
+
+Ы:
+  - data/bl_data/**/*
