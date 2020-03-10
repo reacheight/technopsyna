@@ -3,8 +3,10 @@
 /wiki — ссылки на technoconfa wiki
 /passing\_scores — ссылки на проходные баллы прошлых лет
 /olymp\_privileges — ссылки на льготы при поступлении по олимпиадам
+/larin — последний вариант по матеше от [Ларина](http://alexlarin.net/)
 /wf `<запрос>` — запрос в wolframalpha (взято у [бота чата мехмата](https://t.me/algebrach_bot))
 /dembel — сколько до дембеля оленя?
+/rus /math /phys /inf — сколько до егэ?
 
 /about — небольшое описание бота
 /help — список доступных команд
