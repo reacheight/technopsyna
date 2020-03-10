@@ -41,3 +41,4 @@ ege_countdown_commands = {
 
 larin_var_key = "latest_larin_var"
 larin_variant_pdf_template = "https://alexlarin.net/ege/2020/trvar{}.pdf"
+larin_check_time = timedelta(days=1)
