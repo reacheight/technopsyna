@@ -56,7 +56,7 @@ async def ege_countdown_command(message: types.Message):
 @dispatcher.message_handler(commands=['larin'])
 @log
 async def larin_command(message: types.Message):
-    await message.reply(f'Последний вариант Ларина: {larin.get_latest_var_url()}')
+    await message.reply(f'🧠 последний [вариант]({larin.get_latest_var_url()}) Ларина', parse_mode=types.ParseMode.MARKDOWN)
 
 
 @dispatcher.message_handler(content_types=['new_chat_members'])
@@ -200,7 +200,7 @@ async def new_member_checker(message: types.Message):
     if larin.is_check_time():
         next_var = larin.get_next_var_url()
         if next_var:
-            await bot.send_message(message.chat.id, f'Вышел новый вариант Ларина: {next_var}')
+            await bot.send_message(message.chat.id, f'🌱 вышел новый [вариант]({next_var}) Ларина', parse_mode=types.ParseMode.MARKDOWN)
 
     if message.from_user.id in users.table:
         users.delete(message.from_user.id)
