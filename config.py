@@ -27,6 +27,7 @@ text_commands = {
     'start': 'data/about_command_text',
     'help': 'data/help_command_text',
     'wiki': 'data/wiki_command_text',
+    'internship': 'data/internship_command_text',
     'passing_scores': 'data/passing_scores',
     'olymp_privileges': 'data/olymp_privileges',
     'helpline': 'data/helpline'
