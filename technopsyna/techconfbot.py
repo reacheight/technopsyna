@@ -5,12 +5,10 @@ from random import random
 from aiogram import Bot, Dispatcher, types
 from aiogram.utils import executor
 
-import config
-import utils
-import larin
-from bl import get_bl, get_bl_string_message
-from checker import UserHeap
-from wolfram import (
+from technopsyna import config, larin, utils
+from technopsyna.bl import get_bl, get_bl_string_message
+from technopsyna.checker import UserHeap
+from technopsyna.wolfram import (
     wolfram_parser,
     WolframEmptyQueryException,
     WolframQueryNotFoundException

@@ -1,4 +1,4 @@
-import config
+from technopsyna import config
 from datetime import datetime
 
 

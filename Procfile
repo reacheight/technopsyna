@@ -1,1 +1,1 @@
-bot: python3 techconfbot.py
+bot: python3 technopsyna/techconfbot.py

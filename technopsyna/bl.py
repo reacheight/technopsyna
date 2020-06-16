@@ -1,7 +1,7 @@
 import os
 from random import choice, randint, random
 
-import config
+from technopsyna import config
 
 
 def get_bl_string_message():
