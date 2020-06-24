@@ -2,7 +2,7 @@ import io
 import requests
 from PIL import Image
 
-import config
+from technopsyna import config
 
 
 class WolframEmptyQueryException(Exception):

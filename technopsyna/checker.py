@@ -1,5 +1,5 @@
 from datetime import datetime
-from config import update_delete_user_time, user_delete_time
+from technopsyna.config import update_delete_user_time, user_delete_time
 
 
 class UserHeap:

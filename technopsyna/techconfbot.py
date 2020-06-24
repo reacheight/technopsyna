@@ -5,12 +5,10 @@ from random import random
 from aiogram import Bot, Dispatcher, types
 from aiogram.utils import executor
 
-import config
-import utils
-import larin
-from bl import get_bl, get_bl_string_message
-from checker import UserHeap
-from wolfram import (
+from technopsyna import config, larin, utils
+from technopsyna.bl import get_bl, get_bl_string_message
+from technopsyna.checker import UserHeap
+from technopsyna.wolfram import (
     wolfram_parser,
     WolframEmptyQueryException,
     WolframQueryNotFoundException
@@ -31,12 +29,12 @@ def log(func):
     return log_wrapper
 
 
-@dispatcher.message_handler(commands=list(config.text_commands))
+@dispatcher.message_handler(commands=config.text_commands)
 @log
 async def text_command(message: types.Message):
     command = message.text.split('@', 1)[0][1:]
 
-    with open(config.text_commands[command], 'r') as file:
+    with open(utils.get_command_text_file(command), 'r') as file:
         await message.reply(
             file.read().strip(),
             parse_mode=types.ParseMode.MARKDOWN, disable_web_page_preview=True

@@ -1,4 +1,4 @@
-import config
+from technopsyna import config
 import redis
 import requests
 from datetime import datetime
