@@ -1,5 +1,5 @@
-data:
-  - data/**/*
+static:
+  - static/**/*
 
 Ы:
-  - data/bl_data/**/*
+  - static/bl_data/**/*
