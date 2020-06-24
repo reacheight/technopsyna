@@ -29,7 +29,7 @@ def log(func):
     return log_wrapper
 
 
-@dispatcher.message_handler(commands=list(config.text_commands))
+@dispatcher.message_handler(commands=config.text_commands)
 @log
 async def text_command(message: types.Message):
     command = message.text.split('@', 1)[0][1:]

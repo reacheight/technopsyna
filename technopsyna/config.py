@@ -22,6 +22,8 @@ user_delete_time = timedelta(days=1)
 dembel_message = '13 декабря 2018 года рядовой Олень с почётом закончил проходить военную службу ' \
                  'в рядах доблестной Росгвардии!'
 
+text_commands = ['about', 'help', 'helpline', 'internship', 'olymp_privileges', 'passing_scores', 'wiki']
+
 ege_countdown_commands = {
     'math': ('2020-06-01', 'математике'),
     'rus': ('2020-05-28', 'русскому языку'),
