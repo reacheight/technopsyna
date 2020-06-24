@@ -9,3 +9,7 @@ def get_relative_command(full_command):
 def get_days_until(date):
     delta = date - datetime.now()
     return delta.days
+
+
+def get_command_text_file(command):
+    return f'static/commands/{command}'

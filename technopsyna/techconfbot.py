@@ -34,7 +34,7 @@ def log(func):
 async def text_command(message: types.Message):
     command = message.text.split('@', 1)[0][1:]
 
-    with open(config.text_commands[command], 'r') as file:
+    with open(utils.get_command_text_file(command), 'r') as file:
         await message.reply(
             file.read().strip(),
             parse_mode=types.ParseMode.MARKDOWN, disable_web_page_preview=True
