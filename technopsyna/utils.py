@@ -12,4 +12,4 @@ def get_days_until(date):
 
 
 def get_command_text_file(command):
-    return f'static/commands/{command}'
+    return f'technopsyna/static/commands/{command}'

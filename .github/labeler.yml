@@ -1,5 +1,5 @@
 static:
-  - static/**/*
+  - technopsyna/static/**/*
 
 Ы:
-  - static/bl_data/**/*
+  - technopsyna/static/bl_data/**/*

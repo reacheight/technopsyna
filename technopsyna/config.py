@@ -7,9 +7,9 @@ my_id = int(environ['MY_ID'])
 wolfram_appid = environ['WOLFRAM_APPID']
 wolfram_url = 'https://api.wolframalpha.com/v1/simple?appid=' + wolfram_appid
 wolfram_max_ratio = 2.5
-bl_text_file = 'static/bl_data/bl_text_messages'
-bl_images_locations = 'static/bl_data/images/'
-matan_image = 'static/matan.jpg'
+bl_text_file = 'technopsyna/static/bl_data/bl_text_messages'
+bl_images_locations = 'technopsyna/static/bl_data/images/'
+matan_image = 'technopsyna/static/matan.jpg'
 new_member_sticker = 'CAADAgADrQEAAm29TQUoveU--qPBlAI'
 cho_pacani_sticker = 'CAADAgADJwADtIuIDaIy4m-uZXREAg'
 chto_pacani_pattern = r'(?iu).*чт?[оеё],? п[ао][цс][ао]ны'
