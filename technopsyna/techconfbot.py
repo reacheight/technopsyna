@@ -32,7 +32,7 @@ def log(func):
 @dispatcher.message_handler(commands=config.text_commands)
 @log
 async def text_command(message: types.Message):
-    command = message.text.split('@', 1)[0][1:]
+    command = message.get_command(pure=True)
 
     with open(utils.get_command_text_file(command), 'r') as file:
         await message.reply(
@@ -44,7 +44,7 @@ async def text_command(message: types.Message):
 @dispatcher.message_handler(commands=list(config.ege_countdown_commands))
 @log
 async def ege_countdown_command(message: types.Message):
-    command = utils.get_relative_command(message.get_command())
+    command = message.get_command(pure=True)
     date_string, subject_name = config.ege_countdown_commands[command]
     days_left = utils.get_days_until(datetime.fromisoformat(date_string))
     await message.reply(f'До егэ по *{subject_name}* осталось {days_left} дней.',
