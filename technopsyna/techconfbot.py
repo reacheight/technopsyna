@@ -155,6 +155,7 @@ async def wolfram_command(message: types.Message):
         )
 
 
+@dispatcher.message_handler(regexp=r'.*(витёк|витек).*')
 @dispatcher.message_handler(commands=['vitek'])
 @log
 async def vitek(message: types.Message):
