@@ -158,7 +158,8 @@ async def wolfram_command(message: types.Message):
 @dispatcher.message_handler(commands=['vitek'])
 @log
 async def vitek(message: types.Message):
-    await bot.send_voice(message.chat.id, config.vitek_voice)
+    with open(config.vitek_voice, 'rb') as voice_file:
+        await bot.send_voice(message.chat.id, voice_file)
 
 
 @dispatcher.message_handler(commands=['bl'])
