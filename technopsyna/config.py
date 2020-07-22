@@ -10,6 +10,7 @@ wolfram_max_ratio = 2.5
 bl_text_file = 'technopsyna/static/bl_data/bl_text_messages'
 bl_images_locations = 'technopsyna/static/bl_data/images/'
 matan_image = 'technopsyna/static/matan.jpg'
+vitek_voice = 'technopsyna/static/vitek.ogg'
 new_member_sticker = 'CAADAgADrQEAAm29TQUoveU--qPBlAI'
 cho_pacani_sticker = 'CAADAgADJwADtIuIDaIy4m-uZXREAg'
 chto_pacani_pattern = r'(?iu).*чт?[оеё],? п[ао][цс][ао]ны'
