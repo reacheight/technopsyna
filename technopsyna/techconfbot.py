@@ -54,7 +54,8 @@ async def ege_countdown_command(message: types.Message):
 @dispatcher.message_handler(commands=['larin'])
 @log
 async def larin_command(message: types.Message):
-    await message.reply(f'🧠 последний [вариант]({larin.get_latest_var_url()}) Ларина', parse_mode=types.ParseMode.MARKDOWN)
+    await message.reply(f'🧠 последний [вариант]({larin.get_latest_var_url()}) Ларина',
+                        parse_mode=types.ParseMode.MARKDOWN)
 
 
 @dispatcher.message_handler(content_types=['new_chat_members'])
@@ -68,7 +69,7 @@ async def new_member_check(message: types.Message):
     username = '@' + user.username if user.username else user.first_name
     users.add(user.id)
     user_alive_button = types.InlineKeyboardButton(
-        'Да',
+        'Понял',
         callback_data=f'alive {username} {user.id}'
     )
     user_alive_keyboard = types.InlineKeyboardMarkup().add(user_alive_button)
@@ -80,8 +81,14 @@ async def new_member_check(message: types.Message):
     )
 
     await bot.send_message(
-        message.chat.id, f'Привет, {username}! Вы с нами?',
-        reply_markup=user_alive_keyboard
+        message.chat.id, f'Привет, {username}! Пожалуйста, ознакомься с правилами:\n\n'
+                         '1. Не спамить стикерами и гифками\n'
+                         '2. Тут общаемся только по боту, пофлудить о другом можно [здесь](https://t.me/joinchat/NEHvVxY_HrcmA2ZobX4JZA)\n'
+                         '3. Не стесняемся задавать вопросы, так как для этого конфа и создана\n'
+                         '4. Не быть токсичным уебком\n'
+                         '0. Ботать',
+        reply_markup=user_alive_keyboard,
+        parse_mode=types.ParseMode.MARKDOWN
     )
 
 
@@ -206,7 +213,8 @@ async def new_member_checker(message: types.Message):
     if larin.is_check_time():
         next_var = larin.get_next_var_url()
         if next_var:
-            await bot.send_message(message.chat.id, f'🌱 вышел новый [вариант]({next_var}) Ларина', parse_mode=types.ParseMode.MARKDOWN)
+            await bot.send_message(message.chat.id, f'🌱 вышел новый [вариант]({next_var}) Ларина',
+                                   parse_mode=types.ParseMode.MARKDOWN)
 
     if message.from_user.id in users.table:
         users.delete(message.from_user.id)
