@@ -83,7 +83,7 @@ async def new_member_check(message: types.Message):
     await bot.send_message(
         message.chat.id, f'Привет, {username}! Пожалуйста, ознакомься с правилами:\n\n'
                          '1. Не спамить стикерами и гифками\n'
-                         '2. Тут общаемся только по боту, пофлудить о другом можно [здесь](https://t.me/joinchat/NEHvVxY_HrcmA2ZobX4JZA)\n'
+                         '2. Тут общаемся только по боту, пофлудить о другом можно [здесь](https://t.me/joinchat/NEHvV01tAKqiHa3o6Z0I4g)\n'
                          '3. Не стесняемся задавать вопросы, так как для этого конфа и создана\n'
                          '4. Не быть токсичным уебком\n'
                          '0. Ботать',
