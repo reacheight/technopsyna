@@ -76,8 +76,8 @@ async def new_member_check(message: types.Message):
 
     await bot.restrict_chat_member(
         message.chat.id, user.id,
-        can_send_messages=False, can_add_web_page_previews=False,
-        can_send_media_messages=False, can_send_other_messages=False
+        types.ChatPermissions(can_send_messages=False, can_add_web_page_previews=False,
+                              can_send_media_messages=False, can_send_other_messages=False)
     )
 
     await bot.send_message(
@@ -105,8 +105,8 @@ async def handle_alive_callback(callback_query: types.CallbackQuery):
 
     await bot.restrict_chat_member(
         chat_id, user_id,
-        can_send_messages=True, can_add_web_page_previews=True,
-        can_send_media_messages=True, can_send_other_messages=True
+        types.ChatPermissions(can_send_messages=True, can_add_web_page_previews=True,
+                              can_send_media_messages=True, can_send_other_messages=True)
     )
     await bot.send_message(
         chat_id,
