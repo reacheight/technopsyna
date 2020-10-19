@@ -1,11 +1,12 @@
+import logging
 from datetime import datetime
-from functools import wraps
 from random import random
 
 from aiogram import Bot, Dispatcher, types
 from aiogram.utils import executor
 
 from technopsyna import config, larin, utils
+from technopsyna.log import log
 from technopsyna.bl import get_bl, get_bl_string_message
 from technopsyna.checker import UserHeap
 from technopsyna.wolfram import (
@@ -14,19 +15,11 @@ from technopsyna.wolfram import (
     WolframQueryNotFoundException
 )
 
+logging.basicConfig(format='%(asctime)s | Message: %(message)s', datefmt='%d/%m/%Y %I:%M:%S %p')
+
 bot = Bot(config.token)
 dispatcher = Dispatcher(bot)
 users = UserHeap()
-
-
-def log(func):
-    @wraps(func)
-    async def log_wrapper(message: types.Message, *args, **kwargs):
-        log_text = f'{datetime.now()}\n text: {message.text}\n'
-        await bot.send_message(config.logs_channel, log_text)
-        await func(message, *args, **kwargs)
-
-    return log_wrapper
 
 
 @dispatcher.message_handler(commands=config.text_commands)
