@@ -6,7 +6,7 @@ from aiogram import types
 def log(func):
     @wraps(func)
     async def log_wrapper(message: types.Message, *args, **kwargs):
-        logging.debug(message.text)
+        logging.info(message.text)
         await func(message, *args, **kwargs)
 
     return log_wrapper
