@@ -218,5 +218,5 @@ async def new_member_checker(message: types.Message):
 
 
 if __name__ == '__main__':
-    logging.basicConfig(format='%(asctime)s | Message: %(message)s', datefmt='%d/%m/%Y %I:%M:%S %p')
+    logging.basicConfig(format='%(asctime)s | Message: %(message)s', datefmt='%d/%m/%Y %I:%M:%S %p', level=logging.INFO)
     executor.start_polling(dispatcher)
