@@ -15,8 +15,6 @@ from technopsyna.wolfram import (
     WolframQueryNotFoundException
 )
 
-logging.basicConfig(format='%(asctime)s | Message: %(message)s', datefmt='%d/%m/%Y %I:%M:%S %p')
-
 bot = Bot(config.token)
 dispatcher = Dispatcher(bot)
 users = UserHeap()
@@ -220,4 +218,5 @@ async def new_member_checker(message: types.Message):
 
 
 if __name__ == '__main__':
+    logging.basicConfig(format='%(asctime)s | Message: %(message)s', datefmt='%d/%m/%Y %I:%M:%S %p')
     executor.start_polling(dispatcher)
