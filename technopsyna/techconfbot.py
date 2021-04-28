@@ -5,7 +5,7 @@ from random import random
 from aiogram import Bot, Dispatcher, types
 from aiogram.utils import executor
 
-from technopsyna import config, larin, utils
+from technopsyna import config, larin, utils, test_generator
 from technopsyna.log import log
 from technopsyna.bl import get_bl, get_bl_string_message
 from technopsyna.checker import UserHeap
@@ -151,6 +151,24 @@ async def wolfram_command(message: types.Message):
             'Если вы ввели его на русском, '
             'то попробуйте ввести его на английском.'
         )
+
+
+@dispatcher.message_handler(commands=['generate_math', 'generate_rus', 'generate_inf', 'generate_phys'])
+@log
+async def generate_math_variant_command(message: types.Message):
+    command = message.get_command()
+    subject = command.split('_')[-1]
+
+    try:
+        tasks = list(map(int, message.text.split()[1:]))
+        variant_link = test_generator.generate_variant(subject, tasks)
+        await message.reply(f'[вот]({variant_link}) твой вариант!', parse_mode=types.ParseMode.MARKDOWN)
+    except Exception:
+        await message.reply(
+            'Использование:\n'
+            f'`{command}` — сгенерировать полный вариант\n'
+            f'`{command} n1 n2 n3` — сгенерировать вариант только с заданиями n1 n2 n3 (номера могут повторяться)',
+            parse_mode=types.ParseMode.MARKDOWN)
 
 
 @dispatcher.message_handler(regexp=r'.*(витёк|витек).*')
