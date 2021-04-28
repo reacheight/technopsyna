@@ -156,7 +156,7 @@ async def wolfram_command(message: types.Message):
 @dispatcher.message_handler(commands=['generate_math', 'generate_rus', 'generate_inf', 'generate_phys'])
 @log
 async def generate_math_variant_command(message: types.Message):
-    command = message.get_command()
+    command = message.get_command(pure=True)
     subject = command.split('_')[-1]
 
     try:
