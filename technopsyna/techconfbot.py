@@ -49,13 +49,9 @@ async def larin_command(message: types.Message):
                         parse_mode=types.ParseMode.MARKDOWN)
 
 
-@dispatcher.message_handler(content_types=['new_chat_members'])
-async def new_member_check(message: types.Message):
-    chat_name = message.chat.title
-
-    if chat_name != config.technoconfa_chatname:
-        return
-
+@dispatcher.message_handler(lambda message: message.chat.title and message.chat.title == config.technoconfa_chatname,
+                            content_types=['new_chat_members'])
+async def technoconfa_new_member_check(message: types.Message):
     user = message.new_chat_members[0]
     username = '@' + user.username if user.username else user.first_name
     users.add(user.id)
@@ -106,6 +102,52 @@ async def handle_alive_callback(callback_query: types.CallbackQuery):
         reply_markup=types.ForceReply(selective=True)
     )
     await bot.send_sticker(chat_id, config.new_member_sticker)
+    await callback_query.message.delete()
+
+
+@dispatcher.message_handler(lambda message: message.chat.title and message.chat.title == config.pidoroconfa_chatname,
+                            content_types=['new_chat_members'])
+async def pidoroconfa_new_member_check(message: types.Message):
+    user = message.new_chat_members[0]
+    username = '@' + user.username if user.username else user.first_name
+    users.add(user.id)
+    user_alive_button = types.InlineKeyboardButton(
+        'На месте',
+        callback_data=f'pidoroalive {user.id}'
+    )
+    user_alive_keyboard = types.InlineKeyboardMarkup().add(user_alive_button)
+
+    await bot.restrict_chat_member(
+        message.chat.id, user.id,
+        types.ChatPermissions(can_send_messages=False, can_add_web_page_previews=False,
+                              can_send_media_messages=False, can_send_other_messages=False)
+    )
+
+    await bot.send_message(
+        message.chat.id, f'{username}, ты тут?',
+        reply_markup=user_alive_keyboard,
+        parse_mode=types.ParseMode.MARKDOWN
+    )
+
+
+@dispatcher.callback_query_handler(lambda callback: callback.data.startswith('pidoroalive'))
+async def handle_pidoroalive_callback(callback_query: types.CallbackQuery):
+    await bot.answer_callback_query(callback_query.id)
+
+    user_id = int(callback_query.data.split()[1])
+    chat_id = callback_query.message.chat.id
+
+    if user_id != callback_query.from_user.id:
+        return
+
+    await bot.restrict_chat_member(
+        chat_id, user_id,
+        types.ChatPermissions(can_send_messages=True, can_add_web_page_previews=True,
+                              can_send_media_messages=True, can_send_other_messages=True)
+    )
+
+    users.delete(user_id)
+
     await callback_query.message.delete()
 
 
