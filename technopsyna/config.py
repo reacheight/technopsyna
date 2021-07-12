@@ -16,6 +16,7 @@ cho_pacani_sticker = 'CAADAgADJwADtIuIDaIy4m-uZXREAg'
 chto_pacani_pattern = r'(?iu).*чт?[оеё],? п[ао][цс][ао]ны'
 deer_dembel_date = {'year': 2018, 'month': 12, 'day': 13}
 technoconfa_chatname = 'Техноконфа_2021'
+pidoroconfa_chatname = 'Пидороконфа_20mn'
 bot_username = '@technopsynabot'
 update_delete_user_time = timedelta(seconds=3600)
 user_delete_time = timedelta(days=1)
