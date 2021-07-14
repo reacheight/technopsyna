@@ -125,8 +125,7 @@ async def pidoroconfa_new_member_check(message: types.Message):
 
     await bot.send_message(
         message.chat.id, f'{username}, ты тут?',
-        reply_markup=user_alive_keyboard,
-        parse_mode=types.ParseMode.MARKDOWN
+        reply_markup=user_alive_keyboard
     )
 
 
