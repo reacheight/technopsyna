@@ -124,7 +124,7 @@ async def pidoroconfa_new_member_check(message: types.Message):
     )
 
     await bot.send_message(
-        message.chat.id, f'Привет, {username}, добро пожаловать в пидорконфу. Нажмите на кнопку ниже, '
+        message.chat.id, f'Привет, {username}, добро пожаловать в пидороконфу. Нажмите на кнопку ниже, '
                          f'чтобы подтвердить, '
                          f'что вы человек. Если вы не сделаете этого в течение n минут, вас автоматически исключат из '
                          f'группы.',
