@@ -112,7 +112,7 @@ async def pidoroconfa_new_member_check(message: types.Message):
     username = '@' + user.username if user.username else user.first_name
     users.add(user.id)
     user_alive_button = types.InlineKeyboardButton(
-        'На месте',
+        'Я не бот',
         callback_data=f'pidoroalive {user.id}'
     )
     user_alive_keyboard = types.InlineKeyboardMarkup().add(user_alive_button)
@@ -124,7 +124,10 @@ async def pidoroconfa_new_member_check(message: types.Message):
     )
 
     await bot.send_message(
-        message.chat.id, f'{username}, ты тут?',
+        message.chat.id, f'Привет, {username}, добро пожаловать в пидороконфу. Нажмите на кнопку ниже, '
+                         f'чтобы подтвердить, '
+                         f'что вы человек. Если вы не сделаете этого в течение n минут, вас автоматически исключат из '
+                         f'группы.',
         reply_markup=user_alive_keyboard
     )
 
