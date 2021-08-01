@@ -15,11 +15,11 @@ new_member_sticker = 'CAADAgADrQEAAm29TQUoveU--qPBlAI'
 cho_pacani_sticker = 'CAADAgADJwADtIuIDaIy4m-uZXREAg'
 chto_pacani_pattern = r'(?iu).*чт?[оеё],? п[ао][цс][ао]ны'
 deer_dembel_date = {'year': 2018, 'month': 12, 'day': 13}
-technoconfa_chatname = 'Техноконфа_2021'
-pidoroconfa_chatname = 'Пидороконфа_20mn'
+technoconf_chatname = 'Техноконфа_2021'
+pidoroconf_chatname = 'Пидороконфа_20mn'
 bot_username = '@technopsynabot'
-update_delete_user_time = timedelta(seconds=3600)
-user_delete_time = timedelta(days=1)
+technoconf_new_member_ttl = timedelta(days=1)
+pidoroconf_new_member_ttl = timedelta(minutes=30)
 dembel_message = '13 декабря 2018 года рядовой Олень с почётом закончил проходить военную службу ' \
                  'в рядах доблестной Росгвардии!'
 
