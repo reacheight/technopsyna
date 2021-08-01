@@ -8,7 +8,7 @@ from aiogram.utils import executor
 from technopsyna import config, larin, utils, test_generator
 from technopsyna.log import log
 from technopsyna.bl import get_bl, get_bl_string_message
-from technopsyna.checker import UserHeap
+from technopsyna.watchman import Watchman
 from technopsyna.wolfram import (
     wolfram_parser,
     WolframEmptyQueryException,
@@ -17,7 +17,8 @@ from technopsyna.wolfram import (
 
 bot = Bot(config.token)
 dispatcher = Dispatcher(bot)
-users = UserHeap()
+technoconf_watchman = Watchman(config.technoconf_new_member_ttl)
+pidoroconf_watchman = Watchman(config.pidoroconf_new_member_ttl)
 
 
 @dispatcher.message_handler(commands=config.text_commands)
@@ -49,12 +50,12 @@ async def larin_command(message: types.Message):
                         parse_mode=types.ParseMode.MARKDOWN)
 
 
-@dispatcher.message_handler(lambda message: message.chat.title and message.chat.title == config.technoconfa_chatname,
+@dispatcher.message_handler(lambda message: message.chat.title and message.chat.title == config.technoconf_chatname,
                             content_types=['new_chat_members'])
-async def technoconfa_new_member_check(message: types.Message):
+async def technoconf_new_member_check(message: types.Message):
     user = message.new_chat_members[0]
     username = '@' + user.username if user.username else user.first_name
-    users.add(user.id)
+    technoconf_watchman.add(user.id)
     user_alive_button = types.InlineKeyboardButton(
         'Понял',
         callback_data=f'alive {username} {user.id}'
@@ -105,12 +106,12 @@ async def handle_alive_callback(callback_query: types.CallbackQuery):
     await callback_query.message.delete()
 
 
-@dispatcher.message_handler(lambda message: message.chat.title and message.chat.title == config.pidoroconfa_chatname,
+@dispatcher.message_handler(lambda message: message.chat.title and message.chat.title == config.pidoroconf_chatname,
                             content_types=['new_chat_members'])
-async def pidoroconfa_new_member_check(message: types.Message):
+async def pidoroconf_new_member_check(message: types.Message):
     user = message.new_chat_members[0]
     username = '@' + user.username if user.username else user.first_name
-    users.add(user.id)
+    technoconf_watchman.add(user.id)
     user_alive_button = types.InlineKeyboardButton(
         'Я не бот',
         callback_data=f'pidoroalive {user.id}'
@@ -126,7 +127,7 @@ async def pidoroconfa_new_member_check(message: types.Message):
     await bot.send_message(
         message.chat.id, f'Привет, {username}, добро пожаловать в пидороконфу. Нажмите на кнопку ниже, '
                          f'чтобы подтвердить, '
-                         f'что вы человек. Если вы не сделаете этого в течение n минут, вас автоматически исключат из '
+                         f'что вы человек. Если вы не сделаете этого в течение 30 минут, вас автоматически исключат из '
                          f'группы.',
         reply_markup=user_alive_keyboard
     )
@@ -148,7 +149,7 @@ async def handle_pidoroalive_callback(callback_query: types.CallbackQuery):
                               can_send_media_messages=True, can_send_other_messages=True)
     )
 
-    users.delete(user_id)
+    technoconf_watchman.delete(user_id)
 
     await callback_query.message.delete()
 
@@ -226,7 +227,7 @@ async def vitek(message: types.Message):
 @dispatcher.message_handler(commands=['bl'])
 @log
 async def bl_command(message: types.Message):
-    if message.chat.title == config.technoconfa_chatname and random() > 0.7:
+    if message.chat.title == config.technoconf_chatname and random() > 0.7:
         await bot.send_message(message.chat.id, 'Не флудите.')
         return
 
@@ -258,24 +259,27 @@ async def chto_pacani(message: types.Message):
     await message.reply_sticker(config.cho_pacani_sticker)
 
 
-@dispatcher.message_handler(regexp=r'.*')
-async def new_member_checker(message: types.Message):
-    if message.chat.title != config.technoconfa_chatname:
-        return
-
+@dispatcher.message_handler(lambda message: message.chat.title and message.chat.title == config.technoconf_chatname,
+                            regexp=r'.*')
+async def technoconf_every_message_handler(message: types.Message):
     if larin.is_check_time():
         next_var = larin.get_next_var_url()
         if next_var:
             await bot.send_message(message.chat.id, f'🌱 вышел новый [вариант]({next_var}) Ларина',
                                    parse_mode=types.ParseMode.MARKDOWN)
 
-    if message.from_user.id in users.table:
-        users.delete(message.from_user.id)
+    if message.from_user.id in technoconf_watchman.users:
+        technoconf_watchman.delete(message.from_user.id)
         await message.reply('Вы приняты.')
 
-    if not users.is_check_time():
-        return
-    for user_id in users.check():
+    for user_id in technoconf_watchman.get_users_to_kick():
+        await (await bot.get_chat(message.chat.id)).kick(user_id)
+
+
+@dispatcher.message_handler(lambda message: message.chat.title and message.chat.title == config.pidoroconf_chatname,
+                            regexp=r'.*')
+async def pidoroconf_every_message_handler(message: types.Message):
+    for user_id in pidoroconf_watchman.get_users_to_kick():
         await (await bot.get_chat(message.chat.id)).kick(user_id)
 
 
