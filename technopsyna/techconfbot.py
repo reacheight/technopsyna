@@ -95,7 +95,8 @@ async def handle_alive_callback(callback_query: types.CallbackQuery):
     await bot.restrict_chat_member(
         chat_id, user_id,
         types.ChatPermissions(can_send_messages=True, can_add_web_page_previews=True,
-                              can_send_media_messages=True, can_send_other_messages=True)
+                              can_send_media_messages=True, can_send_other_messages=True,
+                              can_send_polls=True)
     )
     await bot.send_message(
         chat_id,
@@ -147,7 +148,8 @@ async def handle_pidoroalive_callback(callback_query: types.CallbackQuery):
     await bot.restrict_chat_member(
         chat_id, user_id,
         types.ChatPermissions(can_send_messages=True, can_add_web_page_previews=True,
-                              can_send_media_messages=True, can_send_other_messages=True)
+                              can_send_media_messages=True, can_send_other_messages=True,
+                              can_invite_users=True, can_send_polls=True)
     )
 
     technoconf_watchman.delete(user_id)
