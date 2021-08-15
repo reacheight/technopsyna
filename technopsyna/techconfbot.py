@@ -68,8 +68,9 @@ async def technoconf_new_member_check(message: types.Message):
                               can_send_media_messages=False, can_send_other_messages=False)
     )
 
+    escaped_username = username.replace('_', '\\_')
     await bot.send_message(
-        message.chat.id, f'Привет, {username}! Пожалуйста, ознакомься с правилами:\n\n'
+        message.chat.id, f'Привет, {escaped_username}! Пожалуйста, ознакомься с правилами:\n\n'
                          '1. Не спамить стикерами и гифками\n'
                          '2. Тут общаемся только по боту, пофлудить о другом можно [здесь](https://t.me/joinchat/NEHvV01tAKqiHa3o6Z0I4g)\n'
                          '3. Не стесняемся задавать вопросы, так как для этого конфа и создана\n'
